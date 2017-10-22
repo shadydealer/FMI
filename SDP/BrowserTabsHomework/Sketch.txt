@@ -1,0 +1,20 @@
+*********Chunk Array*********
+
+class Tab()
+{
+ char * url;
+ size_t timeStamp;
+}
+
+struct Chunk
+{
+ Tab *data;
+ size_t size;
+}
+
+
+class Browser()
+{
+	private:
+	 
+};

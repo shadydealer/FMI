@@ -1,12 +1,16 @@
 #pragma once
 
 #include <iostream>
+#include "string.h"
 
 class Tab
 {
   private:
-    size_t accessTime;
-    const char *url;
+    size_t _timeStamp;
+    const char * _url;
+
+  private:
+    void SetURL(const char *);
 
   public:
     Tab();
@@ -16,4 +20,8 @@ class Tab
 
   public:
     Tab& operator=(const Tab &);
+  
+  public:
+    const size_t timeStamp() const;
+    const char * url() const;
 };
