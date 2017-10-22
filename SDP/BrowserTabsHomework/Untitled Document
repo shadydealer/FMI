@@ -1,0 +1,54 @@
+***** Browser Tabs *****
+
+-----Goal-----
+
+Create a program that works similarly to the tabs in browsers.
+
+-----Functionality-----
+
+1. There will always be a single tab open with an "about:blank" URL.
+2. The user must be able to access only 1 tab at a time and have access only to it's "neighbour" tabs (the tab that is previous and the tab that is after the currently open tab.).
+3. If the user opens a new tab it has to be added right after the currently open tab and become the currently open tab immediately after.
+4. If the user closes the currently opened tab, the tab that is after it becomes the new currently open tab. If there are no tabs after closing the currently opened tab, the previous one becomes the currently open tab.
+
+-----Supported Commands-----
+
+1. GO <URL>
+***
+ -Overrides the currently open tabs URL.
+ -Overrides the timestamp of the currently open tab.
+***
+
+2. INSERT <URL>
+***
+ -Creates a new tab after the currently open one by given URL.
+ -Automatically generates the new tabs timestamp.
+ -Sets the currently open tab to the newly opened one.
+***
+
+//
+//NOTE: The difference between command 1 and command 2 is that command one overrides the currently opened tab, whereas the second command opens a new 
+//tab, thus saving the currently opened tab in it's "history".
+//
+
+3. BACK
+***
+ -The currently opened tab becomes the tab that is previous to it. If no such tab exists, nothing happens.
+***
+
+4. FORWARD
+***
+ -The currently opened tab becomes the tab that is subsequent to it. If no such tab exists, nothing happens.
+*** 
+
+5. REMOVE
+***
+ -Closes the currently opened tab. The currently opened tab becomes the tab that is subsequent to it, if no such tab exists then the tab prior to it takes its place, if there's also no previously opened tab, the currently opened tabs URL is set to "about:blank".
+***
+
+6. PRINT
+***
+ -<URL> <timestamp> (there's a whitespace between the URL and the timestamp)
+ -The row at which we print the currently opened tab must begin with the ">" sign.
+ -The URL and their timestamps must be printed in the exact order they were opened in.
+*** 
