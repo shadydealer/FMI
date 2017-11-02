@@ -1,46 +1,81 @@
 #include "LinkedList.h"
 
-
-LinkedList::LinkedList() : dummy(new Node()), size(0)
+//
+// Default LinkedList ctor.
+//
+LinkedList::LinkedList() : dummy(new Node("about:blank"))
 {
     dummy->prev = dummy;
     dummy->next = dummy;
-
 }
 
-void LinkedList::Clean()
+//
+// Deletes all the nodes in the list including the dummy.
+//
+void LinkedList::clean()
 {
-    Node * curr = dummy->next;
+    Node *curr = dummy->next;
 
-    while(size)
+    while (curr != dummy)
     {
-        Node * temp = curr->next;
+        Node *temp = curr->next;
         delete curr;
         curr = temp;
-        --size;
     }
 
     delete dummy;
-
-    size = 0;
 }
 
+//
+//LinkedList dtor.
+//
 LinkedList::~LinkedList()
 {
-    Clean();
+    clean();
 }
 
-void LinkedList::Print() const
+//
+// Returns a copy of an iterator pointing to the first element in the list.
+//
+LinkedList::Iterator LinkedList::beg()
 {
-    std::cout << dummy->url << std::endl;
+    return Iterator (dummy->next);
+}
+
+//
+// Returns a copy of an iterator pointing to the last element in the list.
+//
+LinkedList::Iterator LinkedList::end()
+{
+    return Iterator(dummy);
+}
+
+//
+// Creates a new node by given url and inserts it after a specific node.
+//
+void LinkedList::insert_after(Iterator & it, const char* rhsUrl)
+{
+    (*it)->next->prev = new Node(rhsUrl);
+    (*it)->next->prev->next = (*it)->next;
+    (*it)->next->prev->prev = (*it);
+    (*it)->next = (*it)->next->prev;
+}
+
+//
+// Removes the current Node.
+//
+void LinkedList::remove_at(Iterator & it)
+{
+    (*it)->prev->next = (*it)->next;
+    (*it)->next->prev = (*it)->prev;
+    delete (*it);
 }
 
 //
 // Default Node ctor.
 //
-LinkedList::Node::Node() : url(NULL), prev(NULL), next(NULL), timeStamp(time(0))
+LinkedList::Node::Node() : prev(NULL), next(NULL), timeStamp(time(0)), url(NULL)
 {
-    CopyString("about:blank");
 }
 
 //
@@ -48,36 +83,15 @@ LinkedList::Node::Node() : url(NULL), prev(NULL), next(NULL), timeStamp(time(0))
 //
 LinkedList::Node::Node(const char *rhsURL) : Node()
 {
-    CopyString(rhsURL);
-}
-
-//
-// Coppies the string held in the parameter of the function.
-//
-void LinkedList::Node::CopyString(const char *rhsURL)
-{
     try
     {
-        char *buffer = new char[strlen(rhsURL) + 1];
-        strcpy(buffer, rhsURL);
-
-        delete[] url;
-        url = buffer;
+        CopyString(rhsURL);
     }
     catch (std::bad_alloc())
     {
-        Clean();
+        clean_node();
         throw "Failed to allocate enough memory./n";
     }
-}
-
-//
-// Frees any allcated memory and sets the timeStamp to 0.
-//
-void LinkedList::Node::Clean()
-{
-    delete[] url;
-    timeStamp = 0;
 }
 
 //
@@ -85,8 +99,19 @@ void LinkedList::Node::Clean()
 //
 LinkedList::Node::Node(const Node &rhs) : Node()
 {
-    CopyString(rhs.url);
-    timeStamp = rhs.timeStamp;
+    try
+    {
+        CopyString(rhs.url);
+        timeStamp = rhs.timeStamp;
+
+        prev = rhs.prev;
+        next = rhs.next;
+    }
+    catch (std::bad_alloc())
+    {
+        clean_node();
+        throw "Failed to allocate enough memory./n";
+    }
 }
 
 //
@@ -94,7 +119,7 @@ LinkedList::Node::Node(const Node &rhs) : Node()
 //
 LinkedList::Node::~Node()
 {
-    Clean();
+   clean_node();
 }
 
 //
@@ -106,6 +131,119 @@ LinkedList::Node &LinkedList::Node::operator=(const Node &rhs)
     {
         CopyString(rhs.url);
         timeStamp = rhs.timeStamp;
+
+        prev = rhs.prev;
+        next = rhs.next;
     }
     return *this;
 }
+
+//
+// Coppies the string held in the parameter of the function.
+//
+void LinkedList::Node::CopyString(const char *rhsURL)
+{
+    char *buffer = new char[strlen(rhsURL) + 1];
+    strcpy(buffer, rhsURL);
+
+    delete[] url;
+    url = buffer;
+}
+
+//
+// Frees any allcated memory and sets the timeStamp to 0.
+//
+void LinkedList::Node::clean_node()
+{
+    delete[] url;
+    timeStamp = 0;
+}
+
+//
+// Iterator default ctor.
+//
+LinkedList::Iterator::Iterator() : data(NULL)
+{
+}
+
+
+//
+// Iterator ctor with Node pointer parameter.
+//
+LinkedList::Iterator::Iterator(Node *rhs) : data(rhs)
+{
+}
+
+//
+// Iterator copy ctor.
+//
+LinkedList::Iterator::Iterator(const Iterator &rhs) : Iterator()
+{
+    data = rhs.data;
+}
+
+//
+// Iterator operator=.
+//
+LinkedList::Iterator &LinkedList::Iterator::operator=(const Iterator &rhs)
+{
+    if (&rhs != this)
+        data = rhs.data;
+
+    return *this;
+}
+
+//
+// Iterator operator++.
+//
+LinkedList::Iterator& LinkedList::Iterator::operator++()
+{
+    data = data->next;
+    return *this;
+}
+
+//
+// Iterator ++operator.
+//
+LinkedList::Iterator LinkedList::Iterator::operator++(const int)
+{
+    Iterator dummy(*this);
+    ++(*this);
+    return dummy;
+}
+
+//
+// Iterator operator--.
+//
+LinkedList::Iterator& LinkedList::Iterator::operator--()
+{
+    data = data->prev;
+    return * this;
+}
+
+//
+// Iterator --operator.
+//
+LinkedList::Iterator LinkedList::Iterator::operator--(const int)
+{
+    Iterator dummy(*this);
+    --(*this);
+    return dummy;
+}
+
+//
+// Iterator dereference operator.
+//
+LinkedList::Node* LinkedList::Iterator::operator*()
+{
+    return data;
+}
+
+//
+// Iterator operator!=.
+//
+bool LinkedList::Iterator::operator!=(const Iterator & rhs) const
+{
+    return !(data == rhs.data);
+}
+
