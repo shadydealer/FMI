@@ -1,0 +1,18 @@
+GO www.youtube.com/watch?v=dQw4w9WgXcQ
+INSERT www.google.bg/search?q=google+plz+help+me+solve+my+data+structures+task
+INSERT www.9gag.com/gag/aAV83g9/when-you-realise-today-is-the-homework-assignment-deadline
+INSERT www.en.wikipedia.org/wiki/Data_structure
+BACK
+BACK
+REMOVE
+PRINT
+www.youtube.com/watch?v=dQw4w9WgXcQ 150676023
+>www.9gag.com/gag/aAV83g9/when-you-realise-today-is-the-homework-assignment-deadline 150670593
+www.en.wikipedia.org/wiki/Data_structure 150700011
+REMOVE
+GO www.wikihow.com/Deal-With-Tons-of-Homework
+FORWARD
+GO www.susi.uni-sofia.bg
+PRINT
+www.youtube.com/watch?v=dQw4w9WgX
+
