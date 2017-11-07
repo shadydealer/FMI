@@ -104,12 +104,7 @@ const char *CommandHandler::extract_command(const char *rhs_input) const
 
 const char *CommandHandler::extract_url(const char *rhs_input, const size_t url_beg) const
 {
-    size_t len = strlen(rhs_input + url_beg) + 1;
-    char *buffer = new char[len];
-
-    strcpy(buffer, rhs_input + url_beg);
-
-    return buffer;
+    return rhs_input+url_beg;
 }
 
 //

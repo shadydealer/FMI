@@ -111,9 +111,11 @@ bool InputReader::valid_command(const char *buffer)
         || (!strcmp(command, "SORT URL")) 
         || (!strcmp(command, "SORT TIME")))
         {
+            delete[] command;
             return true;
         }
     }
 
+    delete[] command;
     return false;
 }
