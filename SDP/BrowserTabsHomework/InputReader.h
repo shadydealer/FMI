@@ -10,9 +10,6 @@ private:
   InputReader(const InputReader &) = delete;
   InputReader &operator=(const InputReader &) = delete;
 
-private:
-  static bool valid_command(const char *);
-
 public:
   ~InputReader(){};
 

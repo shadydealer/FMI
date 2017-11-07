@@ -52,9 +52,6 @@ const char *InputReader::get_input()
         // check if the input string is a valid command
         //and delete it if it isn't.
 
-        if (!valid_command(buffer))
-            delete[] buffer;
-
         return buffer;
     }
     catch (std::bad_alloc())
@@ -62,60 +59,4 @@ const char *InputReader::get_input()
         delete[] buffer;
         throw std::bad_alloc();
     }
-}
-
-//
-// Checks if the input string is a valid command.
-//
-//
-// May throw std::bad_alloc()
-//
-bool InputReader::valid_command(const char *buffer)
-{
-    char *command;
-
-    size_t length = 0;
-
-    if (*buffer != 0)
-    {
-        if ((!strcmp(buffer, "SORT TIME")) || (!strcmp(buffer, "SORT URL")))
-            length = strlen(buffer) + 1;
-
-        else
-        {
-            size_t it = 0;
-
-            while (buffer[it] != ' ' 
-                && buffer[it] != '\n'
-                && buffer[it] != 0)
-            {
-                ++it;
-                ++length;
-            }
-        }
-
-        command = new char[length];
-
-        for (size_t c = 0; c < length; ++c)
-        {
-            command[c] = buffer[c];
-        }
-        command[length] = 0;
-
-        if ((!strcmp(command, "GO")) 
-        || (!strcmp(command, "INSERT"))
-        || (!strcmp(command, "BACK")) 
-        || (!strcmp(command, "FORWARD")) 
-        || (!strcmp(command, "REMOVE")) 
-        || (!strcmp(command, "PRINT")) 
-        || (!strcmp(command, "SORT URL")) 
-        || (!strcmp(command, "SORT TIME")))
-        {
-            delete[] command;
-            return true;
-        }
-    }
-
-    delete[] command;
-    return false;
 }

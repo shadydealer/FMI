@@ -48,26 +48,50 @@ CommandHandler::command CommandHandler::hash_command(const char *rhs_input) cons
     const char *command = extract_command(rhs_input);
 
     if (!strcmp(command, "GO"))
+    {
+        delete[] command;
         return GO;
+    }
     if (!strcmp(command, "INSERT"))
+    {
+        delete[] command;
         return INSERT;
+    }
     if (!strcmp(command, "BACK"))
+    {
+        delete[] command;
         return BACK;
+    }
     if (!strcmp(command, "FORWARD"))
+    {
+        delete[] command;
         return FORWARD;
+    }
     if (!strcmp(command, "REMOVE"))
+    {
+        delete[] command;
         return REMOVE;
+    }
     if (!strcmp(command, "PRINT"))
+    {
+        delete[] command;
         return PRINT;
+    }
     if (!strcmp(command, "SORT URL"))
+    {
+        delete[] command;
         return SORT_URL;
+    }
     if (!strcmp(command, "SORT TIME"))
+    {
+        delete[] command;
         return SORT_TIME;
+    }
     return EXIT;
 }
 
 //
-// Extracts the string containing the command to be executed.
+// Extracts the string containing the command to be executed and checks if it's a valid command.
 //
 const char *CommandHandler::extract_command(const char *rhs_input) const
 {
@@ -82,9 +106,7 @@ const char *CommandHandler::extract_command(const char *rhs_input) const
     {
         size_t it = 0;
 
-        while (rhs_input[it] != ' ' 
-            && rhs_input[it] != '\n'
-            && rhs_input[it] != 0)
+        while (rhs_input[it] != ' ' && rhs_input[it] != '\n' && rhs_input[it] != 0)
         {
             ++it;
             ++length;
@@ -99,12 +121,18 @@ const char *CommandHandler::extract_command(const char *rhs_input) const
     }
     command[length] = 0;
 
+    if ((!strcmp(command, "GO")) || (!strcmp(command, "INSERT")) || (!strcmp(command, "BACK")) || (!strcmp(command, "FORWARD")) || (!strcmp(command, "REMOVE")) || (!strcmp(command, "PRINT")) || (!strcmp(command, "SORT URL")) || (!strcmp(command, "SORT TIME")))
+    {
+        return command;
+    }
+
+    delete[] command;
     return command;
 }
 
 const char *CommandHandler::extract_url(const char *rhs_input, const size_t url_beg) const
 {
-    return rhs_input+url_beg;
+    return rhs_input + url_beg;
 }
 
 //
