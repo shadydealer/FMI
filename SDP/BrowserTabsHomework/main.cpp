@@ -3,12 +3,11 @@
 #include "CommandHandler.h"
 #include "InputReader.h"
 #include "string.h"
+
 int main()
 {
     try
     {
-
-        char *input;
         LinkedList a;
         CommandHandler handler(a);
 
