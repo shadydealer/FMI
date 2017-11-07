@@ -27,6 +27,8 @@ private:
 
   } * dummy;
 
+private:
+  void copy_list(const LinkedList &);
 public:
   class Iterator
   {
@@ -47,12 +49,13 @@ public:
   public:
     Node* operator*();
     bool operator!=(const Iterator &) const;
+    bool operator ==(const Iterator &) const;
   };
 
 public:
   void clean();
-  Iterator beg();
-  Iterator end();
+  Iterator beg() const;
+  Iterator end() const;
 
 public:
   LinkedList();
