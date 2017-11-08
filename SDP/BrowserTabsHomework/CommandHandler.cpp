@@ -9,34 +9,29 @@ CommandHandler::CommandHandler(LinkedList &rhs) : reciever(&rhs), data_it((*reci
 
 void CommandHandler::execute_command(const char *rhs_input)
 {
-    if (rhs_input)
+    switch (hash_command(rhs_input))
     {
-        switch (hash_command(rhs_input))
-        {
-        case GO:
-            go(extract_url(rhs_input, 2));
-            break;
-        case INSERT:
-            insert(extract_url(rhs_input, 6));
-            break;
-        case BACK:
-            back();
-            break;
-        case FORWARD:
-            forward();
-            break;
-        case REMOVE:
-            remove();
-            break;
-        case PRINT:
-            print();
-            break;
-        case EXIT:
-            throw "Invalid command.\n";
-        }
+    case GO:
+        go(extract_url(rhs_input, 2));
+        break;
+    case INSERT:
+        insert(extract_url(rhs_input, 6));
+        break;
+    case BACK:
+        back();
+        break;
+    case FORWARD:
+        forward();
+        break;
+    case REMOVE:
+        remove();
+        break;
+    case PRINT:
+        print();
+        break;
+    case EXIT:
+        throw "Exiting program.\n";
     }
-    else
-        throw "Invalid command.\n";
 }
 
 //
