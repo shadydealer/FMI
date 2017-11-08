@@ -39,10 +39,10 @@ void LinkedList<T>::copy_list(const LinkedList<T> &rhs)
 {
 
     LinkedList<T>::Iterator curr = beg();      //iterator to the beinning of the curr list.
-    LinkedList<T>::Iterator next = rhs.cbeg(); //iterator to the beginning of the input list.
+    LinkedList<T>::Iterator next = rhs.beg(); //iterator to the beginning of the input list.
 
     // We will keep copying until we encounter the dummy node.
-    while (next != rhs.cend())
+    while (next != rhs.end())
     {
         //Creates a new node and coppies the data from the passed in one.
         curr.pnode->next = new Node(*(*next));
@@ -308,7 +308,7 @@ typename LinkedList<T>::Iterator LinkedList<T>::Iterator::operator--(const int)
 template <typename T>
 bool LinkedList<T>::Iterator::operator!=(const Iterator &rhs) const
 {
-    return !(pnode->data == rhs.pnode->data);
+    return !(pnode == rhs.pnode);
 }
 
 //

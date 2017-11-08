@@ -82,7 +82,7 @@ void Tab::clean()
 
 bool Tab::operator==(const Tab &rhs) const
 {
-    return this == &rhs;
+    return ((timeStamp == rhs.timeStamp) && (strcmp(url, rhs.url)));
 }
 
 //
@@ -111,14 +111,14 @@ void Tab::set_url(const char *rhs_url)
 
 const size_t Tab::get_time() const
 {
-        return timeStamp;
+    return timeStamp;
 }
 
 //
 // Rturns the current tabs url.
 //
 
-const char * Tab::get_url() const
+const char *Tab::get_url() const
 {
     return url;
 }

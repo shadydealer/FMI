@@ -53,10 +53,7 @@ public:
 public:
   void clean();
   Iterator beg();
-  const Iterator cbeg() const;
   Iterator end();
-  const Iterator cend() const;
-
 public:
   LinkedList();
   LinkedList(const LinkedList &);
