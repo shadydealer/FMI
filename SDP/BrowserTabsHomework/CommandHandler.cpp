@@ -3,7 +3,7 @@
 //
 // CommandHandler LinkedList parameter ctor.
 //
-CommandHandler::CommandHandler(LinkedList &rhs) : reciever(&rhs), data_it((*reciever).beg())
+CommandHandler::CommandHandler(LinkedList<Tab> &rhs) : reciever(&rhs), data_it((*reciever).beg())
 {
 }
 
@@ -12,10 +12,11 @@ void CommandHandler::execute_command(const char *rhs_input)
     switch (hash_command(rhs_input))
     {
     case GO:
-        go(extract_url(rhs_input, 2));
+        go(rhs_input + (strlen("GO")+1));
         break;
+
     case INSERT:
-        insert(extract_url(rhs_input, 6));
+        insert(rhs_input + (strlen("INSERT")+1));
         break;
     case BACK:
         back();
@@ -108,11 +109,6 @@ const char *CommandHandler::extract_command(const char *rhs_input) const
     return command;
 }
 
-const char *CommandHandler::extract_url(const char *rhs_input, const size_t url_beg) const
-{
-    return rhs_input + url_beg;
-}
-
 //
 // Inserts a new Node by given url
 //to simulate switching the current tabs url and timestamp.
@@ -123,10 +119,10 @@ void CommandHandler::go(const char *rhs_url)
     // Updates the current nodes URL and timestamp,
     // if it's not the dummy node.
     //
-    if ((*data_it)->url)
+    if (data_it->get_url())
     {
-        (*data_it)->CopyString(rhs_url);
-        (*data_it)->timeStamp = time(0);
+        data_it->set_url(rhs_url);
+        data_it->set_time(time(0));
     }
 
     //
@@ -151,8 +147,8 @@ void CommandHandler::insert(const char *rhs_url)
 //
 void CommandHandler::back()
 {
-    if ((*data_it)->prev->url)
-        data_it = (*data_it)->prev;
+    if (!(--data_it)->get_url())
+        ++data_it;
 }
 
 //
@@ -161,8 +157,8 @@ void CommandHandler::back()
 //
 void CommandHandler::forward()
 {
-    if ((*data_it)->next->url)
-        data_it = (*data_it)->next;
+    if (!(++data_it)->get_url())
+        ++data_it;
 }
 
 //
@@ -174,6 +170,9 @@ void CommandHandler::forward()
 void CommandHandler::remove()
 {
     (*reciever).remove_at(data_it);
+
+    if (!data_it->get_url())
+        (*reciever).insert_after(data_it, "about:blank");
 }
 
 //
@@ -182,16 +181,16 @@ void CommandHandler::remove()
 //
 void CommandHandler::print()
 {
-    LinkedList::Iterator temp = (*reciever).beg();
+    LinkedList<Tab>::Iterator temp = (*reciever).beg();
 
     for (; temp != (*reciever).end(); ++temp)
     {
         if (temp == data_it)
             std::cout << "> ";
 
-        std::cout << (*temp)->url
+        std::cout << temp->get_url()
                   << " "
-                  << (*temp)->timeStamp
+                  << temp->get_time()
                   << std::endl;
     }
 }

@@ -3,37 +3,35 @@
 #include "string.h"
 #include <ctime>
 
+template <typename T>
 class LinkedList
 {
 private:
   struct Node
   {
+    T data;
     Node *prev; //pointer to the previous node.
     Node *next; //pointer to the next node.
 
-    size_t timeStamp; //holds a timestamp of when the Node was created.
-    char *url;        //just a url.
-
-  public:
-    void CopyString(const char *);
-    void clean_node();
-
   public:
     Node();
-    Node(const char *);
+    Node(const T &);
     Node(const Node &);
     Node &operator=(const Node &);
     ~Node();
 
-  } * dummy;
+  } dummy;
 
 private:
   void copy_list(const LinkedList &);
 public:
+
   class Iterator
   {
-    Node *data;
-  public:
+    friend class LinkedList;
+    Node* pnode;
+ 
+ public:
     Iterator();
     Iterator(Node *);
     Iterator(const Iterator &);
@@ -41,29 +39,32 @@ public:
     ~Iterator(){};
   
   public:
+    T *   operator->();
     Iterator &operator++();
     Iterator operator++(const int);
     Iterator &operator--();
     Iterator operator--(const int);
     
   public:
-    Node* operator*();
     bool operator!=(const Iterator &) const;
     bool operator ==(const Iterator &) const;
   };
 
 public:
   void clean();
-  Iterator beg() const;
-  Iterator end() const;
+  Iterator beg();
+  const Iterator cbeg() const;
+  Iterator end();
+  const Iterator cend() const;
 
 public:
   LinkedList();
   LinkedList(const LinkedList &);
-  LinkedList &operator=(const LinkedList &);
+  LinkedList<T> &operator=(const LinkedList &);
   ~LinkedList();
-  
+
 public:
+  void push_back(const char *);
   void insert_after(Iterator &, const char *);
   void remove_at(Iterator &);
 };

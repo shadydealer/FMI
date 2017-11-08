@@ -1,11 +1,12 @@
 #pragma once
-#include "LinkedList.h"
+#include "LinkedList-impl.h"
+#include "Tab.h"
 
 class CommandHandler
 {
   private:
-    LinkedList* reciever;
-    LinkedList::Iterator data_it;
+    LinkedList<Tab>* reciever;
+    LinkedList<Tab>::Iterator data_it;
 
     enum command
     {
@@ -37,7 +38,7 @@ class CommandHandler
     void remove();
     void print();
 public:
-    CommandHandler(LinkedList &);
+    CommandHandler(LinkedList<Tab> &);
     ~CommandHandler(){};
   public:
     void execute_command(const char *);
