@@ -9,11 +9,14 @@ int main()
     try
     {
         LinkedList a;
+        LinkedList::Iterator it = a.beg();
+        a.insert_after(it, "about:blank");
+        
         CommandHandler handler(a);
 
-        const char *buffer;
+        const char * buffer;
 
-        while (strcmp(buffer, "EXIT") != 0 && buffer)
+        while (buffer)
         {
             buffer = InputReader::get_input();
             handler.execute_command(buffer);

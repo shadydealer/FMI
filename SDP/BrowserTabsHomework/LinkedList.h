@@ -59,10 +59,10 @@ public:
 
 public:
   LinkedList();
-  LinkedList(const char *);
   LinkedList(const LinkedList &);
   LinkedList &operator=(const LinkedList &);
   ~LinkedList();
+  
 public:
   void insert_after(Iterator &, const char *);
   void remove_at(Iterator &);

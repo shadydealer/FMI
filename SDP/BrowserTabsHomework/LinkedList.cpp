@@ -5,10 +5,8 @@
 //
 LinkedList::LinkedList() : dummy(new Node())
 {
-    dummy->next = new Node("about:blank");
-    dummy->next->next = dummy;
-    dummy->next->prev = dummy;
-    dummy->prev = dummy->next;
+    dummy->next = dummy;
+    dummy->prev = dummy;
 }
 
 //

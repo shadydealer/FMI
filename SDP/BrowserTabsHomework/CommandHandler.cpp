@@ -46,52 +46,41 @@ CommandHandler::command CommandHandler::hash_command(const char *rhs_input) cons
 {
 
     const char *command = extract_command(rhs_input);
+    enum command c;
 
     if (!strcmp(command, "GO"))
-    {
-        delete[] command;
-        return GO;
-    }
-    if (!strcmp(command, "INSERT"))
-    {
-        delete[] command;
-        return INSERT;
-    }
-    if (!strcmp(command, "BACK"))
-    {
-        delete[] command;
-        return BACK;
-    }
-    if (!strcmp(command, "FORWARD"))
-    {
-        delete[] command;
-        return FORWARD;
-    }
-    if (!strcmp(command, "REMOVE"))
-    {
-        delete[] command;
-        return REMOVE;
-    }
-    if (!strcmp(command, "PRINT"))
-    {
-        delete[] command;
-        return PRINT;
-    }
-    if (!strcmp(command, "SORT URL"))
-    {
-        delete[] command;
-        return SORT_URL;
-    }
-    if (!strcmp(command, "SORT TIME"))
-    {
-        delete[] command;
-        return SORT_TIME;
-    }
-    return EXIT;
+        c = GO;
+
+    else if (!strcmp(command, "INSERT"))
+        c = INSERT;
+
+    else if (!strcmp(command, "BACK"))
+        c = BACK;
+
+    else if (!strcmp(command, "FORWARD"))
+        c = FORWARD;
+
+    else if (!strcmp(command, "REMOVE"))
+        c = REMOVE;
+
+    else if (!strcmp(command, "PRINT"))
+        c = PRINT;
+
+    else if (!strcmp(command, "SORT URL"))
+        c = SORT_URL;
+
+    else if (!strcmp(command, "SORT TIME"))
+        c = SORT_TIME;
+
+    else
+        c = EXIT;
+
+    delete[] command;
+    return c;
 }
 
 //
-// Extracts the string containing the command to be executed and checks if it's a valid command.
+// Extracts the string containing the command to be executed.
 //
 const char *CommandHandler::extract_command(const char *rhs_input) const
 {
@@ -121,12 +110,6 @@ const char *CommandHandler::extract_command(const char *rhs_input) const
     }
     command[length] = 0;
 
-    if ((!strcmp(command, "GO")) || (!strcmp(command, "INSERT")) || (!strcmp(command, "BACK")) || (!strcmp(command, "FORWARD")) || (!strcmp(command, "REMOVE")) || (!strcmp(command, "PRINT")) || (!strcmp(command, "SORT URL")) || (!strcmp(command, "SORT TIME")))
-    {
-        return command;
-    }
-
-    delete[] command;
     return command;
 }
 
@@ -173,7 +156,7 @@ void CommandHandler::insert(const char *rhs_url)
 //
 void CommandHandler::back()
 {
-    if (strcmp((*data_it)->prev->url, "about:blank") != 0)
+    if ((*data_it)->prev->url)
         data_it = (*data_it)->prev;
 }
 
@@ -183,7 +166,7 @@ void CommandHandler::back()
 //
 void CommandHandler::forward()
 {
-    if (strcmp((*data_it)->next->url, "about:blank") != 0)
+    if ((*data_it)->next->url)
         data_it = (*data_it)->next;
 }
 
