@@ -145,7 +145,7 @@ void CommandHandler::go(const char *rhs_url)
     // Updates the current nodes URL and timestamp,
     // if it's not the dummy node.
     //
-    if (strcmp((*data_it)->url, "about:blank") != 0)
+    if ((*data_it)->url)
     {
         (*data_it)->CopyString(rhs_url);
         (*data_it)->timeStamp = time(0);
@@ -212,15 +212,6 @@ void CommandHandler::print()
             std::cout << "> ";
 
         std::cout << (*temp)->url
-                  << " "
-                  << (*temp)->timeStamp
-                  << std::endl;
-    }
-
-    if ((*temp)->prev == (*temp))
-    {
-        std::cout << "> "
-                  << (*temp)->url
                   << " "
                   << (*temp)->timeStamp
                   << std::endl;

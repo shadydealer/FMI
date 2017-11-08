@@ -3,10 +3,12 @@
 //
 // Default LinkedList ctor.
 //
-LinkedList::LinkedList() : dummy(new Node("about:blank"))
+LinkedList::LinkedList() : dummy(new Node())
 {
-    dummy->prev = dummy;
-    dummy->next = dummy;
+    dummy->next = new Node("about:blank");
+    dummy->next->next = dummy;
+    dummy->next->prev = dummy;
+    dummy->prev = dummy->next;
 }
 
 //
@@ -120,7 +122,7 @@ void LinkedList::remove_at(Iterator &it)
     // Check if the next node is the dummy node
     //if it is, point to the previous element,
     //else point to the next element in the list.
-    if (strcmp((*it)->next->url, "about:blank") != 0)
+    if ((*it)->next->url != NULL)
         delete (*it++);
     else
         delete (*it--);
