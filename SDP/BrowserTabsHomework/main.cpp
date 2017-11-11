@@ -20,6 +20,7 @@ int main()
         {
             buffer = get_input();
             handler.execute_command(buffer);
+            delete [] buffer;
         }
         while (buffer);
     }
