@@ -1,4 +1,0 @@
-This is a test
-So I can try and read from
-a File.
-Hoo-haa!
