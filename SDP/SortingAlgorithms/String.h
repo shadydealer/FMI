@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include <iomanip>
 #include <string.h>
 
 class String
@@ -21,11 +21,12 @@ public:
 
 public:
   void append(const char *);
+  const char charAt(const int) const;
   String substr(const int = 0, const char = 0) const;
 
 public:
-  bool operator==(const String&) const;
-  bool operator==(const char*) const;
+  bool operator==(const String &) const;
+  bool operator==(const char *) const;
 
 public:
   const char *get_data() const;

@@ -1,5 +1,5 @@
 #pragma once
-#include "iostream"
+#include <iomanip>
 
 #define MIN_CAP 64
 
@@ -15,7 +15,7 @@ class dynamic_array
     inline void resize();
     inline void copy_data(const dynamic_array &);
 
-public:
+  public:
     dynamic_array();
     dynamic_array(const int);
     dynamic_array(const dynamic_array &);
@@ -23,9 +23,11 @@ public:
 
   public:
     T &operator[](const int);
+    const T &operator[](const int) const;
 
   public:
     void push(const T &);
+    void reverse();
 
   public:
     const int get_capacity() const;
@@ -49,11 +51,10 @@ dynamic_array<T>::dynamic_array(const dynamic_array<T> &rhs) : data(NULL), capac
     copy_data(rhs);
 }
 
-
 template <typename T>
 dynamic_array<T> &dynamic_array<T>::operator=(const dynamic_array<T> &rhs)
 {
-    if (*this != &rhs)
+    if (this != &rhs)
     {
         copy_data(rhs);
     }
@@ -86,6 +87,19 @@ void dynamic_array<T>::push(const T &rhs)
 
     data[size++] = rhs;
 }
+
+template <typename T>
+void dynamic_array<T>::reverse()
+{
+    T temp;
+    for (int i = 0; i < size / 2; ++i)
+    {
+        temp = data[i];
+        data[i] = data[size - 1 - i];
+        data[size-1-i] = temp;
+    }
+}
+
 //
 // Makes space for more T types,
 //coppies the data from the previously allocated space into the new space,
@@ -111,6 +125,14 @@ inline void dynamic_array<T>::resize()
 
 template <typename T>
 T &dynamic_array<T>::operator[](const int index)
+{
+    if (index < size)
+        return data[index];
+    else
+        throw "Out of range of the array.\n";
+}
+template <typename T>
+const T &dynamic_array<T>::operator[](const int index) const
 {
     if (index < size)
         return data[index];

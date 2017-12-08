@@ -1,0 +1,11 @@
+exams-data.csv name asc
+exams-data.csv name desc
+exams-data.csv subject asc
+exams-data.csv subject desc
+exams-data.csv age asc
+exams-data.csv age desc
+exams-data.csv grade asc
+exams-data.csv grade desc
+exams-data.csv year asc
+exams-data.csv year desc
+

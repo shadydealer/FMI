@@ -89,17 +89,16 @@ void String::append(const char *rhs)
         strcpy(temp, rhs);
     }
 
-    length = newLen;
-
     delete[] data;
     data = temp;
+    length = newLen;
 }
 
 String String::substr(const int from, const char delim) const
 {
     String str;
     char *temp = data;
-    temp = from ? temp + from : temp;
+    temp = (from ? temp + from : temp);
 
     int len = 0;
     while (*temp++ != delim)
@@ -112,6 +111,14 @@ String String::substr(const int from, const char delim) const
 
     str = buffer;
     return str;
+}
+
+const char String::charAt(const int index) const
+{
+    if (index < length)
+        return data[index];
+
+    return 0;
 }
 
 bool String::operator==(const String &rhs) const
@@ -131,6 +138,9 @@ const char *String::get_data() const
     return data;
 }
 
+//
+// get method for the strings length.
+//
 const int String::get_length() const
 {
     return length;

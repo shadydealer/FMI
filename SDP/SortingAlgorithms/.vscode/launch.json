@@ -11,7 +11,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/Algos",
             "args": [],
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,

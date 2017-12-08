@@ -1,76 +1,32 @@
 #pragma once
 #include <iostream>
 
-template <typename T>
+#include "examData.h"
+
 class linked_list
 {
-  private:
-    struct node
-    {
-      public:
-        T data;
-        node *prev;
-        node *next;
-
-      public:
-        node();
-        node(const T &);
-        node(const node &);
-        node &operator=(const node &);
-    } * beg, *end;
-
-    int size;
+private:
+  struct node
+  {
+  public:
+    char data;      //will hold the character which we've currently read from the string.
+    node **next;
+    const examData *obj;  //NULL if the character that data is pointing to is not the last character.
 
   public:
-    linked_list();
-    linked_list(const linked_list<T>&);
-    linked_list<T> operator=(const linked_list<T>&);
+    node();
+    node(const char );
+    ~node();
+  } * *nodes;
+
+  int size;
+private:
+  void add(node *&,const char);
+public:
+  linked_list();
+  linked_list(const int );
+  ~linked_list();
+
+public:
+  void push(const examData &);
 };
-
-template <typename T>
-linked_list<T>::linked_list() : beg(NULL), end(NULL)
-{
-}
-
-//
-// ===== NODE METHODS =====
-//
-
-//
-// node default ctor.
-//
-template <typename T>
-linked_list<T>::node::node() : data(), prev(NULL), next(NULL)
-{
-}
-
-//
-// node T parameter ctor.
-//
-template <typename T>
-linked_list<T>::node::node(const T &rhs_data) : data(rhs_data), prev(NULL), next(NULL)
-{
-}
-
-//
-// node copy ctor.
-//
-template <typename T>
-linked_list<T>::node::node(const node &rhs) : data(rhs.data), prev(rhs.prev), next(rhs.next)
-{
-}
-
-//
-// node operator=.
-//
-template <typename T>
-typename linked_list<T>::node &linked_list<T>::node::operator=(const node &rhs)
-{
-    if (this != &rhs)
-    {
-        data = rhs.data;
-        prev = rhs.prev;
-        next = rhs.next;
-    }
-    return *this;
-}
