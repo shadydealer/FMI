@@ -3,7 +3,7 @@
 #include "examData.h"
 
 #define GRADES 5
-
+#define ASCII_COUNT 255
 //
 // Mutates the passed in dynamic_array<examData> into a max heap.
 //
@@ -149,5 +149,91 @@ void radix_sort(dynamic_array<examData> &rhs, bool isAsc = 1)
     }
   }
 
+  delete[] buckets;
+}
+//
+// Radix Sort for strings
+//
+// Stable sorting algorithm.
+// Does not require comparison.
+// Worst case performance O(S*N) where S is the length of the longest word.
+// Out of place.
+//
+
+void radix_sort_name(dynamic_array<examData> &rhs, int index = 0)
+{
+
+  int size = rhs.get_size();
+
+  dynamic_array<examData> **buckets = new dynamic_array<examData> *[255];
+  for (int i = 0; i < ASCII_COUNT; ++i)
+  {
+    buckets[i] = new dynamic_array<examData>;
+  }
+
+  if (buckets[0][0].get_size() < size)
+  {
+    for (int i = 0; i < size; ++i)
+    {
+      if (rhs[i].get_name().get_length() > index)
+        (*buckets[rhs[i].get_name().charAt(index)]).push(rhs[i]);
+    }
+    for (int i = 0; i < ASCII_COUNT; ++i)
+    {
+      if ((*buckets[i]).get_size())
+        radix_sort_name((*buckets[i]),++index);
+    }
+  }
+
+  int k = 0;
+
+  for (int i = 0; i < ASCII_COUNT; ++i)
+  {
+    for (int j = 0; j < (*buckets[i]).get_size(); j++)
+    {
+      rhs[k] = (*buckets[i])[j];
+      ++k;
+    }
+    delete[] buckets[i];
+  }
+  delete[] buckets;
+}
+
+void radix_sort_subject(dynamic_array<examData> &rhs, int index = 0)
+{
+
+  int size = rhs.get_size();
+
+  dynamic_array<examData> **buckets = new dynamic_array<examData> *[255];
+  for (int i = 0; i < ASCII_COUNT; ++i)
+  {
+    buckets[i] = new dynamic_array<examData>;
+  }
+
+  if (buckets[0][0].get_size() < size)
+  {
+    for (int i = 0; i < size; ++i)
+    {
+      if (rhs[i].get_subject().get_length() > index)
+        (*buckets[rhs[i].get_subject().charAt(index)]).push(rhs[i]);
+    }
+    for (int i = 0; i < ASCII_COUNT; ++i)
+    {
+      if ((*buckets[i]).get_size())
+        radix_sort_subject((*buckets[i]),++index);
+    }
+  }
+
+  int k = 0;
+
+  for (int i = 0; i < ASCII_COUNT; ++i)
+  {
+    for (int j = 0; j < (*buckets[i]).get_size(); j++)
+    {
+      rhs[k] = (*buckets[i])[j];
+      ++k;
+    }
+    delete[] buckets[i];
+  }
   delete[] buckets;
 }

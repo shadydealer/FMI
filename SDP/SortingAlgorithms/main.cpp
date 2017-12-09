@@ -6,8 +6,6 @@
 #include "dynamic_array.h"
 #include "algos.h"
 
-#include "linked_list.h"
-
 #define DEF_SIZE 1024 //default size for array.
 enum command
 {
@@ -27,7 +25,6 @@ void execute_command(const String &, const command &, const command &);
 void quick_sort(dynamic_array<examData> &, int, int);
 
 std::ifstream &operator>>(std::ifstream &, dynamic_array<examData> &);
-std::ifstream &operator>>(std::ifstream &, linked_list &);
 std::ostream &operator<<(std::ostream &, const String &);
 std::ostream &operator<<(std::ostream &, const dynamic_array<examData> &);
 int main()
@@ -102,6 +99,14 @@ void execute_command(const String &filePath, const command &column, const comman
         {
             order == DESC ? radix_sort(data, 0) : radix_sort(data);
         }
+        else if (column == NAME)
+        {
+            radix_sort_name(data);
+        }
+        else
+        {
+            radix_sort_subject(data);
+        }
         if (order == DESC && column != GRADE)
             data.reverse();
 
@@ -144,49 +149,6 @@ void getline(std::istream &is, String &str, char delim)
 }
 
 std::ifstream &operator>>(std::ifstream &is, dynamic_array<examData> &rhs)
-{
-    String name;
-    int age;
-    String subject;
-    int grade;
-    int data[3] = {};
-
-    while (is.good())
-    {
-        getline(is, name, ',');
-        //std::cout << name << std::endl;
-
-        is >> age;
-        //std::cout << age << std::endl;
-
-        is.get();
-
-        getline(is, subject, ',');
-        //std::cout << subject << std::endl;
-
-        is >> grade;
-        //std::cout << grade << std::endl;
-
-        for (int i = 0; i < 3; ++i)
-        {
-            is.get();
-            is >> data[i];
-            //    std::cout << data[i] << std::endl;
-        }
-
-        is.get();
-        date d(data[0], data[1], data[2]);
-        rhs.push(examData(d, age, grade, name, subject));
-
-        //std::cout << "------\n";
-
-        if (is.peek() == '\n')
-            break;
-    }
-
-    return is;
-}
-std::ifstream &operator>>(std::ifstream &is, linked_list &rhs)
 {
     String name;
     int age;

@@ -24,9 +24,11 @@ class dynamic_array
   public:
     T &operator[](const int);
     const T &operator[](const int) const;
+    T &operator*();
 
   public:
     void push(const T &);
+    T pop();
     void reverse();
 
   public:
@@ -43,10 +45,11 @@ template <typename T>
 dynamic_array<T>::dynamic_array(const int cap) : data(NULL), capacity(cap), size(0)
 {
     data = new T[cap];
+    memset(data, 0, cap);
 }
 
 template <typename T>
-dynamic_array<T>::dynamic_array(const dynamic_array<T> &rhs) : data(NULL), capacity(rhs.cap), size(rhs.size)
+dynamic_array<T>::dynamic_array(const dynamic_array<T> &rhs) : data(NULL), capacity(rhs.capacity), size(rhs.size)
 {
     copy_data(rhs);
 }
@@ -89,6 +92,13 @@ void dynamic_array<T>::push(const T &rhs)
 }
 
 template <typename T>
+T dynamic_array<T>::pop()
+{
+    T temp = data[size--];
+    return temp;
+}
+
+template <typename T>
 void dynamic_array<T>::reverse()
 {
     T temp;
@@ -96,7 +106,7 @@ void dynamic_array<T>::reverse()
     {
         temp = data[i];
         data[i] = data[size - 1 - i];
-        data[size-1-i] = temp;
+        data[size - 1 - i] = temp;
     }
 }
 
@@ -131,6 +141,7 @@ T &dynamic_array<T>::operator[](const int index)
     else
         throw "Out of range of the array.\n";
 }
+
 template <typename T>
 const T &dynamic_array<T>::operator[](const int index) const
 {
@@ -140,6 +151,11 @@ const T &dynamic_array<T>::operator[](const int index) const
         throw "Out of range of the array.\n";
 }
 
+template <typename T>
+T &dynamic_array<T>::operator*()
+{
+    return *data;
+}
 template <typename T>
 const int dynamic_array<T>::get_capacity() const
 {
