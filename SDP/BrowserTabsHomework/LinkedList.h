@@ -2,6 +2,7 @@
 #include <iostream>
 #include "string.h"
 #include <ctime>
+#include "Tab.h"
 
 template <typename T>
 class LinkedList

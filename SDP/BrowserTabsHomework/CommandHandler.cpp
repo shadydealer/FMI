@@ -85,7 +85,7 @@ const char *CommandHandler::extract_command(const char *rhs_input) const
     size_t length = 0;
 
     if ((!strcmp(rhs_input, "SORT TIME")) || (!strcmp(rhs_input, "SORT URL")))
-        length = strlen(rhs_input) + 1;
+        length = strlen(rhs_input);
 
     else
     {
@@ -98,14 +98,13 @@ const char *CommandHandler::extract_command(const char *rhs_input) const
         }
     }
 
-    command = new char[length];
+    command = new char[length + 1];
 
     for (size_t c = 0; c < length; ++c)
     {
         command[c] = rhs_input[c];
     }
     command[length] = 0;
-
     return command;
 }
 
@@ -158,7 +157,7 @@ void CommandHandler::back()
 void CommandHandler::forward()
 {
     if (!(++data_it)->get_url())
-        ++data_it;
+        --data_it;
 }
 
 //

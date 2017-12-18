@@ -106,8 +106,8 @@ typename LinkedList<T>::Iterator LinkedList<T>::end()
 //
 // Inserts a node at the end of the list.
 //
-template <typename T>
-void LinkedList<T>::push_back(const char *rhs_url)
+template <>
+inline void LinkedList<Tab>::push_back(const char *rhs_url)
 {
     dummy.prev->next = new Node(rhs_url);
     dummy.prev->next->next = &dummy;
@@ -117,8 +117,8 @@ void LinkedList<T>::push_back(const char *rhs_url)
 //
 // Creates a new node by given url and inserts it after a specific node.
 //
-template <typename T>
-void LinkedList<T>::insert_after(Iterator &it, const char *rhsUrl)
+template <>
+inline void LinkedList<Tab>::insert_after(Iterator &it, const char *rhsUrl)
 {
     it.pnode->next->prev = new Node(rhsUrl);     //Set the next nodes "previous" pointer to a new Node.
     it.pnode->next->prev->next = it.pnode->next; //Set the new nodes "next" pointer to the current Nodes "next" node.
