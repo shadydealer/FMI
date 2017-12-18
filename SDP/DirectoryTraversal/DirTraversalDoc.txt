@@ -1,0 +1,45 @@
+---- Directory Traversal program ----
+
+
+	* The program takes a directory path as input along with a template which gives us the information about which files the users wants to know the size of in descending order.
+	* The program is Linux specific using a set of functions and types declared in the dirent.h file.
+
+	
+
+-------------------------------------
+
+
+### Classes ###
+
+* file_data
+	
+	Includes:
+	-<fstream>
+	-<string.h>	
+	
+	Members:
+	-const char* path;
+		Holds the full path to the file.
+	-unsigned int size;
+		Holds the size of the file.
+	
+	Private Methods:
+	-void copy_path(const char * rhs_path);
+		Coppies rhs_path into the path member.
+
+	Public Methods:
+	-file_data()
+		Sets the path pointer to NULL and the size to 0.
+	-file_data(const char * rhs_path)
+		Coppies rhs_path into the path member and sets the size member to be equal to the file size.
+	-file_data(const file_data& rhs)
+		Coppies the path and size from rhs into the current file_data objects path and size members.
+	-operator=(const file_data& rhs)
+		Coppies the path and size from rhs into the current file_data objects path and size members.	
+	-set_path(const char * rhs_path)
+		Coppies rhs_path into the path member and sets the size member to be equal to the file size.	
+	-const char* get_path() const;
+		Returns a const copy of the path member.
+	-const unsigned int get_size() const;
+		Returns a const copy of the size member.
+	
