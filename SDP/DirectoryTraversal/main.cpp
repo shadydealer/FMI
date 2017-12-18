@@ -7,7 +7,6 @@ int main()
 {
     try
     {
-        
     }
     catch(std::bad_alloc())
     {
