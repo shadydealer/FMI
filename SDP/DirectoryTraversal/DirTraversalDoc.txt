@@ -43,3 +43,48 @@
 	-const unsigned int get_size() const;
 		Returns a const copy of the size member.
 	
+* prefix_tree
+	Includes:
+	-"String.h" //self made string class
+	
+	Members:
+	-node * root;
+		Node is a struct which is nested within the prefix_tree class. Its members are:
+		-String keys[3];
+			3 Strings which hold the keys of each node.
+		-node *first, *second, *third, *fourth;
+			4 node pointers, each of which will point to a child node.
+		-bool type;
+			A boolean which will hold the type of the node. The two states are :
+			-DIR
+			-FILE
+		Public Methods:
+		-node();
+			Default node ctor. Calls the dafault ctor for each key, sets all the children pointers to null and the type boolean to DIR.
+		-node(const String&);
+			Const String parameter ctor for the node struct. Coppies the passed in value into the left most key of the newly created node.
+		-node& operator=(const node &);
+			Coppies the keys, addresses pointed to by the children pointers and the type boolean from the passed in node into the current 				node.
+
+
+	Private Methods:
+	-void clean(node *);
+		Used to delete all the nodes recursivly when calling the destructor.
+	
+	Public Methods:
+		-prefix_tree();
+			Default prefix_tree ctor.
+		-~prefix_tree();
+			Prefix_tree dtor.
+		-void insert();
+	
+
+
+
+
+
+
+
+
+
+

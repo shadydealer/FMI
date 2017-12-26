@@ -9,17 +9,17 @@ class file_data
     unsigned int size;
 
   private:
-    void copy_path(const char *);
+    void copy_path(const char * const);
 
   public:
     file_data();
-    file_data(const char *);
+    file_data(const char * const);
     file_data(const file_data &);
     file_data &operator=(const file_data &);
     ~file_data();
 
   public:
-    void set_path(const char*);
+    void set_path(const char* const);
     
   public:
     const char *get_path() const;
