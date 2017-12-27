@@ -40,15 +40,15 @@ void build_max_heap(dynamic_array<examData> &rhs, int size)
 
 void heap_sort(dynamic_array<examData> &rhs)
 {
-  int size = rhs.get_size() - 1;
+  int size = rhs.get_size();
   examData dummy;
-  while (size > 0)
+  while (size-- > 0)
   {
     dummy = rhs[0];
     rhs[0] = rhs[size];
     rhs[size] = dummy;
 
-    build_max_heap(rhs, size--);
+    build_max_heap(rhs, size);
   }
 }
 
