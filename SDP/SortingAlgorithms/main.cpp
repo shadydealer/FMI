@@ -210,6 +210,6 @@ std::ostream &operator<<(std::ostream &os, const dynamic_array<examData> &rhs)
 }
 std::ostream &operator<<(std::ostream &os, const String &str)
 {
-    std::cout << str.get_data();
+    os << str.get_data();
     return os;
 }
