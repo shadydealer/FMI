@@ -20,7 +20,7 @@ class dynamic_array
     dynamic_array(const int);
     dynamic_array(const dynamic_array &);
     dynamic_array &operator=(const dynamic_array &);
-
+    ~dynamic_array();
   public:
     T &operator[](const int);
     const T &operator[](const int) const;
@@ -62,6 +62,16 @@ dynamic_array<T> &dynamic_array<T>::operator=(const dynamic_array<T> &rhs)
         copy_data(rhs);
     }
     return *this;
+}
+
+
+//
+// default ctor for dynamic_array<T>
+//
+template <typename T>
+dynamic_array<T>::~dynamic_array()
+{
+    delete[] data;
 }
 
 //

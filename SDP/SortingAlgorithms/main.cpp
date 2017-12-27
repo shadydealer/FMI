@@ -27,17 +27,15 @@ void quick_sort(dynamic_array<examData> &, int, int);
 std::ifstream &operator>>(std::ifstream &, dynamic_array<examData> &);
 std::ostream &operator<<(std::ostream &, const String &);
 std::ostream &operator<<(std::ostream &, const dynamic_array<examData> &);
-int main()
+int main(int argc, char * argv[])
 {
     try
     {
-        String input;
-        getline(std::cin, input);
         String tokens[3] = {};
 
-        tokens[0] = input.substr(0, ' ');                                          //path to the file.
-        tokens[1] = input.substr(tokens[0].get_length(), ' ');                     //column by which the data has to be sorted.
-        tokens[2] = input.substr(tokens[0].get_length() + tokens[1].get_length()); //order in which the data has to be sorted.
+        tokens[0] = argv[1]; //path to the file.
+        tokens[1] = argv[2]; //column by which the data has to be sorted.
+        tokens[2] = argv[3]; //order in which the data has to be sorted.
 
         command column = hash_token(tokens[1]);
         command order = hash_token(tokens[2]);

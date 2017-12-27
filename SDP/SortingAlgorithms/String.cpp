@@ -64,6 +64,7 @@ String &String::operator=(const String &rhs)
 String &String::operator=(const char *rhs)
 {
     copy_string(rhs);
+    return * this;
 }
 //
 //  Puts the passed in char array at the nd of the data array.
@@ -109,7 +110,9 @@ String String::substr(const int from, const char delim) const
     char *buffer = new char[len];
     strncpy(buffer, temp, len);
 
+    buffer[len] = 0;
     str = buffer;
+    delete[] buffer;
     return str;
 }
 
