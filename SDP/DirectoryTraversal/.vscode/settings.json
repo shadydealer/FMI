@@ -21,6 +21,13 @@
         "streambuf": "cpp",
         "system_error": "cpp",
         "type_traits": "cpp",
-        "typeinfo": "cpp"
-    }
+        "typeinfo": "cpp",
+        "array": "cpp",
+        "ctime": "cpp",
+        "iomanip": "cpp",
+        "sstream": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Enabled"
 }

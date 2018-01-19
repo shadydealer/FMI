@@ -2,26 +2,30 @@
 #include <fstream>
 #include <string.h>
 
+#define ADDED '+'
+#define REMOVED '-'
+
 class file_data
 {
-  private:
-    char *path;
-    unsigned int size;
+private:
+  std::string name;
+  unsigned int size;
+  char marker;
 
-  private:
-    void copy_path(const char * const);
+private:
+  void get_file_name(const std::string &);
 
-  public:
-    file_data();
-    file_data(const char * const);
-    file_data(const file_data &);
-    file_data &operator=(const file_data &);
-    ~file_data();
+public:
+  file_data();
+  file_data(const std::string &, const char);
+  file_data(const file_data &);
+  file_data &operator=(const file_data &);
 
-  public:
-    void set_path(const char* const);
-    
-  public:
-    const char *get_path() const;
-    const unsigned int get_size() const;
+public:
+  void set_marker(const char);
+
+public:
+  const std::string get_name() const;
+  const unsigned int get_size() const;
+  const char get_marker() const;
 };
