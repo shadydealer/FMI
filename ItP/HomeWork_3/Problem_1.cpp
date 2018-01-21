@@ -4,15 +4,14 @@
 
 #define DEFAULT_BUFFER_SIZE 256
 
-void getline(std::istream &in, char *&buffer);
-void decompress_string(char *, char *&);
+char *decompress_string(char *);
 
 int main(int argc, char *const argv[])
 {
     try
     {
         char *data = NULL;
-        decompress_string(argv[1], data);
+        data = decompress_string(argv[1]);
         std::cout << data << std::endl;
 
         delete[] data;
@@ -28,17 +27,16 @@ int main(int argc, char *const argv[])
     return 0;
 }
 
-void decompress_string(char *input, char *&data)
+char *decompress_string(char *input)
 {
+    static char *data = new char[2]();
 
     if (*input)
     {
-
-        size_t len = data ? strlen(data) + 2 : 2;
+        size_t len = strlen(data) + 2;
         char *buffer = new char[len]();
 
-        if (data)
-            strcpy(buffer, data);
+        strcpy(buffer, data);
 
         delete[] data;
         data = buffer;
@@ -59,14 +57,14 @@ void decompress_string(char *input, char *&data)
                 size_t num = atoi(temp);
                 for (size_t n = 0; n < num; ++n)
                 {
-                    decompress_string(input, data);
+                    decompress_string(input);
                 }
                 while (*input != ')')
                     ++input;
                 while (*input == ')')
                     ++input;
 
-                decompress_string(input, data);
+                decompress_string(input);
             }
 
             else if (*input != ')')
@@ -78,7 +76,8 @@ void decompress_string(char *input, char *&data)
         else
         {
             data[len - 2] = *input;
-            decompress_string(++input, data);
+            decompress_string(++input);
         }
     }
+    return data;
 }
