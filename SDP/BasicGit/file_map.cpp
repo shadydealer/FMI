@@ -18,7 +18,7 @@ file_map::~file_map()
         ++next;
     }
 }
-const char * file_map::operator[](const std::string &file_name)
+const char * file_map::operator[](const std::string &file_path)
 {
     std::list<std::vector<file_data> *>::iterator lit = data.begin(); //list iterator.
     std::vector<file_data>::iterator vit;                             //vector iterator.
@@ -28,7 +28,7 @@ const char * file_map::operator[](const std::string &file_name)
         vit = (*lit)->begin();
         for (; vit != (*lit)->end(); ++vit)
         {
-            if (strcmp(vit->get_name(), file_name.c_str()) == 0)
+            if (strcmp(vit->get_path(), file_path.c_str()) == 0)
                 return vit->get_hash();
         }
     }
@@ -46,7 +46,7 @@ const char * file_map::get_path(const std::string & file_hash)
         for (; vit != (*lit)->end(); ++vit)
         {
             if (strcmp(vit->get_hash(), file_hash.c_str()) == 0)
-                return vit->get_name();
+                return vit->get_path();
         }
     }
     return NULL;

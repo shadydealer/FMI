@@ -41,7 +41,7 @@ void prefix_tree::_print(std::string full_path, node *root) const
             for (; file_it != root->files.end(); ++file_it)
             {
                 std::cout << full_path
-                          << (*file_it).get_name()
+                          << (*file_it).get_path()
                           << " "
                           << std::endl;
             }
@@ -66,6 +66,7 @@ prefix_tree::node::node() : directory(), files(), folders()
 
 prefix_tree::node::node(const std::string &rhs_dir) : directory(rhs_dir), files(), folders()
 {
+    directory.append("/");
 }
 
 prefix_tree::node::~node()

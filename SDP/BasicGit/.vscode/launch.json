@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/myGit",
-            "args": ["commit", "~/Desktop/test/B","Mitko","Hi"],
+            "args": ["checkout", "~/Desktop/test", "3"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

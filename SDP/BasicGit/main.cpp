@@ -15,6 +15,22 @@ int main(int argc, char *const argv[])
         {
             make_commit(argv[2], argv[3], argv[4]);
         }
+        else if(strcmp(argv[1], "log") == 0)
+        {
+            print_log(argv[2]);
+        }
+        else if(strcmp(argv[1], "status") == 0)
+        {
+            status(argv[2]);
+        }
+        else if(strcmp(argv[1], "revert") == 0)
+        {
+            revert(argv[2], argv[3], argv[4]);
+        }
+        else if(strcmp(argv[1], "checkout") == 0)
+        {
+            checkout(argv[2], argv[3]);
+        }
         
         return 0;
     }

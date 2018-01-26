@@ -11,11 +11,11 @@
 class file_data
 {
 private:
-  char name[PATH_LENGTH];
+  char path[PATH_LENGTH];
   char hash[HASH_LENGTH];
 
 private:
-  void get_file_name(const std::string &);
+  void get_file_path(const std::string &);
   void get_content_hash(std::ifstream &);
 
 public:
@@ -25,10 +25,10 @@ public:
   file_data &operator=(const file_data &);
 
 public:
-  void set_name(const char[PATH_LENGTH]);
+  void set_path(const char[PATH_LENGTH]);
   void set_hash(const char[HASH_LENGTH]);
 
 public:
-  const char *get_name() const;
+  const char *get_path() const;
   const char *get_hash() const;
 };
