@@ -1,6 +1,0 @@
-﻿  fn45254_prob8_vc.cpp
-d:\mitko\fmi\c++\fmihomework_no3\fn45254_prob8_vc\fn45254_prob8_vc.cpp(32): warning C4018: '<': signed/unsigned mismatch
-d:\mitko\fmi\c++\fmihomework_no3\fn45254_prob8_vc\fn45254_prob8_vc.cpp(55): warning C4018: '>=': signed/unsigned mismatch
-d:\mitko\fmi\c++\fmihomework_no3\fn45254_prob8_vc\fn45254_prob8_vc.cpp(71): warning C4018: '>=': signed/unsigned mismatch
-cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
-  fn45254_prob8_vc.vcxproj -> D:\MITKO\FMI\C++\FMIHomework_No3\Debug\fn45254_prob8_vc.exe
