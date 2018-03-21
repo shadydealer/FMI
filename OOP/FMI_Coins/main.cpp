@@ -1,27 +1,35 @@
 #include <stdio.h>
-#include "Dynamic_Array.h"
+
+#include "DynamicArray.h"
 #include "Wallet.h"
+#include "CommandHandler.h"
+
+#define WALLET_FILE_NAME "logs/wallets.bin"
+#define TRANSACTION_FILE_NAME "logs/transactions.bin"
 
 int main()
 {
     try
     {
-        Dynamic_Array<Wallet> arr;
-        for (unsigned int i = 0; i < 10; ++i)
-        {
-            Wallet temp(i, "J");
-            arr.push_back(temp);
-        }
+        CommandHandler *instance = CommandHandler::getInstance();
+        instance->updateWallets(WALLET_FILE_NAME);
+        instance->updateTransactions(TRANSACTION_FILE_NAME);
+        
+        instance->printWallets();
+        instance->printTransactions();
 
-        for (unsigned int i = 0; i < arr.get_size(); ++i)
-        {
-            printf("id: %u, balance: %f, name: %s \n", arr[i].get_id(),
-                                                       arr[i].get_money(),
-                                                       arr[i].get_owner());
-        }
+        instance->logWallets(WALLET_FILE_NAME);
+        instance->logTransacitons(TRANSACTION_FILE_NAME);
+        
     }
     catch (std::bad_alloc())
     {
+        printf("Couldn't allocate any more memory.");
+    }
+    catch (std::out_of_range& oor)
+    {
+        printf("%s", oor.what());
     }
     return 0;
 }
+
