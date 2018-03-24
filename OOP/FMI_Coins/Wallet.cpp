@@ -5,7 +5,7 @@ Wallet::Wallet() : owner(), id(0), fiat_money()
     ++id;
 }
 
-Wallet::Wallet(const char rhs_owner[256],
+Wallet::Wallet(const char rhs_owner[DEFAULT_NAME_LENGTH],
                const double rhs_money,
                const unsigned int rhs_id)
     : owner(),
@@ -28,17 +28,21 @@ Wallet &Wallet::operator=(const Wallet &rhs)
     return *this;
 }
 
-const char *Wallet::get_owner() const
+void Wallet::setMoney(const double rhs_money)
+{
+    fiat_money = rhs_money;
+}
+const char *Wallet::getOwner() const
 {
     return owner;
 }
 
-const unsigned int &Wallet::get_id() const
+const unsigned int &Wallet::getID() const
 {
     return id;
 }
 
-const double &Wallet::get_money() const
+const double &Wallet::getMoney() const
 {
     return fiat_money;
 }

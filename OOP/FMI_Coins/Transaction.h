@@ -11,10 +11,10 @@ class Transaction
 
   public:
     Transaction();
-    Transaction(const long long,
+    Transaction(const unsigned int,
                 const unsigned int,
-                const unsigned int,
-                const double);
+                const double,
+                const long long);
 
     Transaction &operator=(const Transaction &);
 

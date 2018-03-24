@@ -1,0 +1,3 @@
+i, p, 0.1
+i, p, 0.1
+Transactions made: 2, Amount transfered: 75

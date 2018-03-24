@@ -1,23 +1,27 @@
 #pragma once
 #include "string.h" //strcpy()
 
+#define DEFAULT_NAME_LENGTH 256
+
 class Wallet
 {
 private:
-  char owner[256];
+  char owner[DEFAULT_NAME_LENGTH];
   unsigned int id;
   double fiat_money;
 
 public:
   Wallet();
-  Wallet(const char [256],
+  Wallet(const char [DEFAULT_NAME_LENGTH],
          const double,
          const unsigned int);
 
   Wallet &operator=(const Wallet &);
-
 public:
-  const char *get_owner() const;
-  const unsigned int& get_id() const;
-  const double& get_money() const;
+  void setMoney(const double);
+public:
+  const char *getOwner() const;
+  const unsigned int& getID() const;
+  const double& getMoney() const;
+
 };

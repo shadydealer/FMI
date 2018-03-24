@@ -21,15 +21,15 @@ class DynamicArray
     ~DynamicArray();
 
   public:
-    void push_back(const T &);
-
+    void pushBack(const T &);
+    void remove(const unsigned int);
   public:
     const T &operator[](const unsigned int) const;
     T &operator[](const unsigned int);
 
   public:
-    const unsigned int get_size() const;
-    const unsigned int get_capacity() const;
+    const unsigned int getSize() const;
+    const unsigned int getCapacity() const;
 };
 
 template <typename T>
@@ -53,11 +53,22 @@ DynamicArray<T>::~DynamicArray()
 }
 
 template <typename T>
-void DynamicArray<T>::push_back(const T &rhs)
+void DynamicArray<T>::pushBack(const T &rhs)
 {
     if (size == capacity - 1 || size == 0)
         Resize();
     data[size++] = rhs;
+}
+
+template <typename T>
+void DynamicArray<T>::remove(const unsigned int index)
+{
+    if(index < size)
+    {
+        for(unsigned int i = index; i < size-1; ++i)
+            data[i] = data[i+1];
+    }
+    --size;
 }
 
 template <typename T>
@@ -93,13 +104,13 @@ T &DynamicArray<T>::operator[](const unsigned int index)
 }
 
 template <typename T>
-const unsigned int DynamicArray<T>::get_size() const
+const unsigned int DynamicArray<T>::getSize() const
 {
     return size;
 }
 
 template <typename T>
-const unsigned int DynamicArray<T>::get_capacity() const
+const unsigned int DynamicArray<T>::getCapacity() const
 {
     return capacity;
 }

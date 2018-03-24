@@ -6,14 +6,14 @@ Transaction::Transaction(): t_time(time(0)),
                             fmiCoins(0)
 {}
 
-Transaction::Transaction(const long long rhs_time,
-                         const unsigned int rhs_sender,
+Transaction::Transaction(const unsigned int rhs_sender,
                          const unsigned int rhs_receiver,
-                         const double rhs_fiatMoney):
+                         const double rhs_fiatMoney,
+                         const long long rhs_time):
                          t_time(rhs_time),
                          senderId(rhs_sender),
                          receiverId(rhs_receiver),
-                         fmiCoins(rhs_fiatMoney/375.0)
+                         fmiCoins(rhs_fiatMoney)
 {}
 
 Transaction& Transaction::operator=(const Transaction & rhs)
@@ -35,7 +35,7 @@ const unsigned int & Transaction::getSenderID() const
 
 const unsigned int & Transaction::getReceiverID() const
 {
-    return senderId;
+    return receiverId;
 }
 
 const double & Transaction::getCoins() const
