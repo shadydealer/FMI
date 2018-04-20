@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "limits": "cpp",
+        "cstdlib": "cpp",
+        "*.tcc": "cpp",
+        "cstdint": "cpp",
+        "cstdio": "cpp",
+        "exception": "cpp",
+        "initializer_list": "cpp",
+        "new": "cpp",
+        "type_traits": "cpp",
+        "typeinfo": "cpp"
+    }
+}
