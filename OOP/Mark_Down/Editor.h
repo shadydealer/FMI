@@ -15,9 +15,9 @@ private:
   DynamicArray<Line> lines;
 
 private:
-  void _write_format_chars(std::ofstream &, const char *);
   void _extract_data_for_editing();
   const char *_append_extension(const char *);
+  void _write_format_chars(std::ofstream &, const char *);
   void _dump_word(std::ofstream &,
                   const Word &,
                   FontFlags &);

@@ -41,15 +41,25 @@ Word::~Word()
     delete[] data;
 }
 
+/* 
+    Coppies the contents of the rhsStr into the data char array attribute.
+
+    @params rhsStr- string to be coppied over.
+ */
 void Word::set_string(const char * rhsStr)
 {
     _strcpy(rhsStr);
     flags = NONE;
 }
 
-void Word::set_flag(const FontFlags & rhs_flag)
+/*
+    Updates the flags FontFlags attribute.
+    
+    @params rhsFlag- flag to be set.
+ */
+void Word::set_flag(const FontFlags & rhsFlag)
 {
-    flags = flags | rhs_flag;
+    flags = flags | rhsFlag;
 }
 
 const char * Word::get_data() const

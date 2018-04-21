@@ -19,9 +19,6 @@ inline FontFlags operator|(const FontFlags &left,
 inline FontFlags operator&(const FontFlags &left,
                            const FontFlags &right)
 {
-  std::cout << "left: " << static_cast<int>(left) << 
-            "right: " << static_cast<int>(right) << std::endl;
-
     return static_cast<FontFlags>(static_cast<int>(left) & static_cast<int>(right));
 }
 
