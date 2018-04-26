@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "iomanip": "cpp",
+        "algorithm": "cpp",
+        "array": "cpp",
+        "initializer_list": "cpp"
+    }
+}
