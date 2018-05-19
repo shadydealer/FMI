@@ -9,6 +9,7 @@ class DynamicArray
 {
   private:
     unsigned int size;
+    unsigned int length;
     T *data;
 
   private:
@@ -34,12 +35,14 @@ class DynamicArray
 
 template <typename T>
 DynamicArray<T>::DynamicArray() : size(0),
-                                  data(NULL)
+                                  length(2),
+                                  data(new T[length])
 {
 }
 
 template <typename T>
 DynamicArray<T>::DynamicArray(const unsigned int rhs_cap) : size(0),
+                                                            length(rhs_cap),
                                                             data(new T[rhs_cap])
 {
 }
@@ -49,13 +52,21 @@ DynamicArray<T> &DynamicArray<T>::operator=(const DynamicArray<T> &rhs)
 {
     if (this != &rhs)
     {
+        unsigned int newLen = rhs.length;
+        T *temp = new T[newLen];
 
-        unsigned int size = rhs.get_size();
-        for (unsigned int i = 0; i < size; ++i)
-            push_back(rhs[i]);
+        for (unsigned int i = 0; i < rhs.size; ++i)
+            temp[i] = rhs.data[i];
+
+        delete[] data;
+        data = temp;
+
+        length = rhs.length;
+        size = rhs.size;
     }
     return *this;
 }
+
 template <typename T>
 DynamicArray<T>::~DynamicArray()
 {
@@ -65,8 +76,12 @@ DynamicArray<T>::~DynamicArray()
 template <typename T>
 void DynamicArray<T>::push_back(const T &rhs)
 {
-    resize(size + 1);
-    data[size - 1] = rhs;
+    if (size == length - 1)
+    {
+        unsigned int newLength = length == 0 ? 2 : length * 2;
+        resize(newLength);
+    }
+    data[size++] = rhs;
 }
 
 template <typename T>
@@ -76,17 +91,18 @@ void DynamicArray<T>::remove(const unsigned int index)
     {
         for (unsigned int i = index; i < size - 1; ++i)
             data[i] = data[i + 1];
-        
-        resize(size - 1);
+
+        if (size < length / 2)
+            resize(length / 2);
     }
     else
         throw std::out_of_range("Index was out of bounds of the array.\n");
 }
 
 template <typename T>
-void DynamicArray<T>::resize(const unsigned int new_size)
+void DynamicArray<T>::resize(const unsigned int newLength)
 {
-    T *buffer = new T[new_size];
+    T *buffer = new T[newLength];
 
     for (unsigned int i = 0; i < size; ++i)
         buffer[i] = data[i];
@@ -94,7 +110,7 @@ void DynamicArray<T>::resize(const unsigned int new_size)
     delete[] data;
     data = buffer;
 
-    size = new_size;
+    length = newLength;
 }
 
 template <typename T>

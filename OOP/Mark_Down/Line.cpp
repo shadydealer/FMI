@@ -65,7 +65,6 @@ void Line::_add_word(const char *word, unsigned short wordLen)
     tempString[wordLen] = 0;
 
     words.push_back(Word(tempString));
-
     delete[] tempString;
 }
 
