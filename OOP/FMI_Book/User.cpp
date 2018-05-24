@@ -17,6 +17,12 @@ User::~User()
 {
 }
 
+//Operator==.
+bool User::operator==(const User &rhs)
+{
+    return nickname == rhs.nickname;
+}
+
 /*
     Changes the nickname of the current User object
     to the passed in String nickname.

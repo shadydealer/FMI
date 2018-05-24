@@ -59,6 +59,11 @@ String& String::operator=(const char * rhsStr)
     _copy(rhsStr);
 }
 
+//Operator==.
+bool String::operator==(const String & rhs)
+{
+    return (strcmp(data, rhs.data) == 0);
+}
 /*
     Moves the data from one cstring to another.
 

@@ -11,8 +11,8 @@ private:
 
 private:
   void _copy(const char *);
-  void _move(char*, const char *) const;
-  void _append(char*, const char*) const;
+  void _move(char *, const char *) const;
+  void _append(char *, const char *) const;
 
 public:
   String();
@@ -24,9 +24,11 @@ public:
   String &operator=(const char *);
 
 public:
+  bool operator==(const String &);
+public:
   void append(const char *);
   String ull_to_string(unsigned long long);
-  
+
 public:
   const unsigned int get_length() const;
   const char *get_cstr() const;

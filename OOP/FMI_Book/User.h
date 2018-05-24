@@ -31,9 +31,12 @@ public:
   virtual ~User();
 
 public:
+  bool operator==(const User &);
+
+public:
   void change_nickname(const String &);
   void block_unblock();
-  
+
 public:
   const String &get_nickname() const;
   const bool is_blocked() const;

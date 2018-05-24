@@ -17,9 +17,9 @@ Administrator::Administrator(const String &rhsNickName) : Moderator(rhsNickName)
 
     @return value- Moderator with rhsNickname as his nickname.
  */
-Moderator * Administrator::add_moderator(const String& rhsNickname) const
+Moderator Administrator::add_moderator(const String& rhsNickname) const
 {
-    Moderator * temp = new Moderator(rhsNickname);
+    Moderator temp(rhsNickname);
     printf("Added moderator %s.\n", rhsNickname.get_cstr());
     return temp;
 }
@@ -31,9 +31,9 @@ Moderator * Administrator::add_moderator(const String& rhsNickname) const
 
     @return value- User with rhsNickname as his nickname.
  */
-User* Administrator::add_user(const String & rhsNickname) const
+User Administrator::add_user(const String & rhsNickname) const
 {
-    User * temp = new User(rhsNickname);
+    User temp (rhsNickname);
     printf("Added user %s.\n", rhsNickname.get_cstr());
     return temp;
 }
