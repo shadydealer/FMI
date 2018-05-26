@@ -24,4 +24,6 @@ class Post
 
   public:
     virtual const String generate_html_string() const =0;
+    unsigned int get_id() const;
+    const User* get_creator() const;
 };

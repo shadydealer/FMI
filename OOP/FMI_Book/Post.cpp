@@ -1,6 +1,6 @@
 #include "Post.h"
 
-static unsigned long long currID = 0;
+static unsigned long long currID = 1;
 
 //Default ctor.
 Post::Post() : data(),
@@ -16,4 +16,16 @@ Post::Post(const String &rhsData,
            id(currID++),
            creator(rhsCreator)
 {
+}
+
+//id getter method.
+unsigned int Post::get_id() const
+{
+    return id;
+}
+
+//creator getter method.
+const User * Post::get_creator() const
+{
+    return creator;
 }

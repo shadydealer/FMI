@@ -11,9 +11,9 @@ class Administrator : public Moderator
 {
   public:
     Administrator();
-    Administrator(const String &);
+    Administrator(const String &, const unsigned int);
 
   public:
-    Moderator  add_moderator(const String&) const;
-    User  add_user(const String&) const;
+    Moderator add_moderator(const String&, const unsigned int) const;
+    User  add_user(const String&, const unsigned int) const;
 };

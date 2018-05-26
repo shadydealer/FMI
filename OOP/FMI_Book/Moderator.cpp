@@ -6,7 +6,9 @@ Moderator::Moderator(): User()
 }
 
 //String parameter ctor.
-Moderator::Moderator(const String & rhsNickName): User(rhsNickName)
+Moderator::Moderator(const String & rhsNickName,
+                     const unsigned int rhsAge): User(rhsNickName,
+                                                      rhsAge)
 {
 }
 

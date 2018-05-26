@@ -6,7 +6,9 @@ Administrator::Administrator() : Moderator()
 }
 
 //String parameter ctor.
-Administrator::Administrator(const String &rhsNickName) : Moderator(rhsNickName)
+Administrator::Administrator(const String &rhsNickName,
+                             const unsigned int rhsAge) : Moderator(rhsNickName,
+                                                                    rhsAge)
 {
 }
 
@@ -17,10 +19,10 @@ Administrator::Administrator(const String &rhsNickName) : Moderator(rhsNickName)
 
     @return value- Moderator with rhsNickname as his nickname.
  */
-Moderator Administrator::add_moderator(const String& rhsNickname) const
+Moderator Administrator::add_moderator(const String& rhsNickname,
+                                       const unsigned int rhsAge) const
 {
-    Moderator temp(rhsNickname);
-    printf("Added moderator %s.\n", rhsNickname.get_cstr());
+    Moderator temp(rhsNickname, rhsAge);
     return temp;
 }
 
@@ -31,9 +33,9 @@ Moderator Administrator::add_moderator(const String& rhsNickname) const
 
     @return value- User with rhsNickname as his nickname.
  */
-User Administrator::add_user(const String & rhsNickname) const
+User Administrator::add_user(const String & rhsNickname,
+                             const unsigned int rhsAge) const
 {
-    User temp (rhsNickname);
-    printf("Added user %s.\n", rhsNickname.get_cstr());
+    User temp (rhsNickname, rhsAge);
     return temp;
 }

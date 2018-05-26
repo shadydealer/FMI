@@ -13,7 +13,7 @@ class Moderator:public User
 {
   public:
     Moderator();
-    Moderator(const String &);
+    Moderator(const String &, const unsigned int);
   
   public:
     void block(User &);

@@ -2,14 +2,17 @@
 
 //Default ctor.
 User::User() : nickname(),
+               age(0),
                isBlocked(false)
 {
 }
 
 //String parameter ctor.
-User::User(const String &rhsNickname) : User()
-{
-    nickname = rhsNickname;
+User::User(const String &rhsNickname,
+           const unsigned int rhsAge) : nickname(rhsNickname),
+                                        age(rhsAge),
+                                        isBlocked(false)
+{    
 }
 
 //dtor.
@@ -48,6 +51,12 @@ void User::block_unblock()
 const String& User::get_nickname() const
 {
     return nickname;
+}
+
+//Getter method for the age attribute.
+const unsigned int User::get_age() const
+{
+    return age;
 }
 
 //Getter method for the isBlocked attribute.

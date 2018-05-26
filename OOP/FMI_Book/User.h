@@ -14,11 +14,12 @@ class User
 {
 private:
   String nickname;
+  unsigned int age;
   bool isBlocked;
 
 public:
   User();
-  User(const String &);
+  User(const String &, const unsigned int);
 
   /*
         The destructor is virtual because
@@ -39,5 +40,6 @@ public:
 
 public:
   const String &get_nickname() const;
+  const unsigned int get_age() const;
   const bool is_blocked() const;
 };

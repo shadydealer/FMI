@@ -1,7 +1,7 @@
 #include "htmlController.h"
 
 #define DEFAULT_START_TAGS "<html>\n<body>\n"
-#define DEFAULT_END_TAGS "</html>\n</body>"
+#define DEFAULT_END_TAGS "\n</html>\n</body>"
 
 /*
     creates an html file with a given file name 
@@ -21,7 +21,7 @@ bool HTMLController::create_html_file(const String &fileName, const String &html
     if (out.is_open())
     {
         out << DEFAULT_START_TAGS;
-        out << htmlString.get_cstr();
+        out << htmlString.get_cstr() << '\n';
         out << DEFAULT_END_TAGS;
         
         out.close();

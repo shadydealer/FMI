@@ -2,6 +2,8 @@
     "files.associations": {
         "typeinfo": "cpp",
         "limits": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "stdexcept": "cpp",
+        "*.tcc": "cpp"
     }
 }

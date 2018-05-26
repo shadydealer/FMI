@@ -24,10 +24,10 @@ public:
   String &operator=(const char *);
 
 public:
-  bool operator==(const String &);
+  bool operator==(const String &) const;
 public:
   void append(const char *);
-  String ull_to_string(unsigned long long);
+  static String ull_to_string(unsigned long long);
 
 public:
   const unsigned int get_length() const;
