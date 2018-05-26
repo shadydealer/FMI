@@ -19,6 +19,7 @@ class PolymorphicList
         Node();
         Node(T *);
         Node &operator=(const Node&);
+        ~Node();
     } * front, *back;
 
     unsigned int length;
@@ -78,6 +79,13 @@ PolymorphicList<T>::Node::Node() : prev(nullptr), next(nullptr), data(nullptr)
 template <typename T>
 PolymorphicList<T>::Node::Node(T * rhsData) : prev(nullptr), next(nullptr), data(rhsData)
 {
+}
+
+//default dtor.
+template<typename T>
+PolymorphicList<T>::Node::~Node()
+{
+    delete data;
 }
 
 //Node operator=.
@@ -193,12 +201,12 @@ template <typename T>
 PolymorphicList<T>::~PolymorphicList()
 {
     Node *temp = front;
-
+    Node * curr;
     while (temp)
     {
-        front = temp;
+        curr = temp;
         temp = temp->next;
-        delete front;
+        delete curr;
     }
 }
 

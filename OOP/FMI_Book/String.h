@@ -25,6 +25,9 @@ public:
 
 public:
   bool operator==(const String &) const;
+  bool operator==(const char *) const;
+  bool operator!=(const String &) const;
+  bool operator!=(const char *) const;
 public:
   void append(const char *);
   static String ull_to_string(unsigned long long);

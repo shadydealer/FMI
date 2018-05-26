@@ -5,6 +5,12 @@
 #include "Moderator.h"
 #include "Administrator.h"
 
+enum UserType
+{
+  USER,
+  MODERATOR
+};
+
 class UserController
 {
 private:
@@ -17,7 +23,10 @@ public:
   UserController();
 
 public:
-  bool add_user(User *);
+  void add_user(const String &, const unsigned int, const UserType);
   void remove_user(const String &);
   User *fetch_user(const String &);
+  
+  void block_user(const String &, const String &);
+  void unblock_user(const String &, const String &);
 };

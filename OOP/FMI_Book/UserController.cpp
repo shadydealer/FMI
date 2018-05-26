@@ -32,27 +32,31 @@ PolymorphicList<User>::Iterator UserController::_fetch_user(const String &rhsNic
     to be added.
 
     @params rhs- the user we'll possibly be adding.
-    
-    @return value:
-        True if the users nickname is unique.
-        False otherwise.
- */
-bool UserController::add_user(User * rhs)
+    */
+void UserController::add_user(const String &nickName,
+                              const unsigned int age,
+                              const UserType type)
 {
-    PolymorphicList<User>::Iterator userExists = _fetch_user(rhs->get_nickname());
+    PolymorphicList<User>::Iterator userExists = _fetch_user(nickName);
 
     if (!userExists)
     {
-        users.push_back(rhs);
+        User *temp;
 
-        printf("%s\n", rhs->get_nickname().get_cstr());
+        if (type == USER)
+            temp = new User(nickName, age);
+        else if (type == MODERATOR)
+            temp = new Moderator(nickName, age);
 
-        printf("Added user %s.\n", rhs->get_nickname().get_cstr());
-        return true;
+        users.push_back(temp);
+
+        printf("%s\n", nickName.get_cstr());
+
+        printf("Added user %s.\n", nickName.get_cstr());
+        return;
     }
 
-    printf("Nickname %s is already in use.\n", rhs->get_nickname().get_cstr());
-    return false;
+    printf("Nickname %s is already in use.\n", nickName.get_cstr());
 }
 
 /* 
@@ -92,4 +96,64 @@ User *UserController::fetch_user(const String &rhsNickName)
         return (&(*it));
 
     return nullptr;
+}
+
+/*
+    Blocks a user with nickname receiverNickName 
+    if the user with nickname value of actorNickName
+    has rights to do so.
+
+    @params actorNickName - nickname of the user that's doing the blocking.
+    @params receiverNickname - nickname of the user the actor is blocking.
+ */
+void UserController::block_user(const String &actorNickName, const String &receiverNickName)
+{
+
+    User *actor = fetch_user(actorNickName);
+    User *receiver = fetch_user(receiverNickName);
+    if (actor && receiver)
+    {
+        Moderator *mod = dynamic_cast<Moderator *>(actor);
+        if (mod)
+        {
+            if (!receiver->is_blocked())
+            {
+                receiver->block_unblock();
+                printf("%s blocked %s.\n", actorNickName.get_cstr(), receiverNickName.get_cstr());
+                return;
+            }
+            printf("%s is already blocked.\n", receiverNickName.get_cstr());
+        }
+        printf("%s doesn't have permission to block.\n", actorNickName.get_cstr());
+    }
+}
+
+/*
+    Unblocks a user with nickname receiverNickName 
+    if the user with nickname value of actorNickName
+    has rights to do so.
+
+    @params actorNickName - nickname of the user that's doing the blocking.
+    @params receiverNickname - nickname of the user the actor is blocking.
+ */
+void UserController::unblock_user(const String &actorNickName, const String &receiverNickName)
+{
+
+    User *actor = fetch_user(actorNickName);
+    User *receiver = fetch_user(receiverNickName);
+    if (actor && receiver)
+    {
+        Moderator *mod = dynamic_cast<Moderator *>(actor);
+        if (mod)
+        {
+            if (receiver->is_blocked())
+            {
+                receiver->block_unblock();
+                printf("%s unblocked %s.\n", actorNickName.get_cstr(), receiverNickName.get_cstr());
+                return;
+            }
+            printf("%s is already unblocked.\n", receiverNickName.get_cstr());
+        }
+        printf("%s doesn't have permission to unblock.\n", actorNickName.get_cstr());
+    }
 }

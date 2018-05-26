@@ -59,10 +59,28 @@ String &String::operator=(const char *rhsStr)
     _copy(rhsStr);
 }
 
-//Operator==.
+//String paramter Operator==.
 bool String::operator==(const String &rhs) const
 {
     return (strcmp(data, rhs.data) == 0);
+}
+
+//Cstring paramter Operator==.
+bool String::operator==(const char * rhs) const
+{
+    return (strcmp(data, rhs) == 0);
+}
+
+//String paramter Operator!=.
+bool String::operator!=(const String &rhs) const
+{
+    return (strcmp(data, rhs.data) != 0);
+}
+
+//Cstring paramter Operator!=.
+bool String::operator!=(const char * rhs) const
+{
+    return (strcmp(data, rhs) != 0);
 }
 /*
     Moves the data from one cstring to another.
