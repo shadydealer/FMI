@@ -1,10 +1,14 @@
 #include <stdio.h>
 #include "Polynomial.h"
 #include <array>
-void print_int_polynomial(Polynomial<int> &rhs);
 
 int main()
 {
+    Polynomial<int> inputPol;
+    std::cin >> inputPol;
+
+    std::cout << inputPol;
+    
     Polynomial<int> a;
     a.set_at(3, 1);
     a.set_at(2, -2);
@@ -23,45 +27,34 @@ int main()
     printf("b at %d = %d\n", point, b(point));
     Polynomial<int> c = a + b;
 
-    print_int_polynomial(a);
+    std::cout << a;
     printf("degree(a)=%u\n", (unsigned int)a);
 
-    print_int_polynomial(b);
+    std::cout << b;
     printf("degree(b)=%u\n", (unsigned int)b);
 
-    print_int_polynomial(c);
+    std::cout << c;
     printf("degree(c)=%u\n", (unsigned int)c);
 
     Pair<Polynomial<int>, Polynomial<int>> p = a / b;
     Polynomial<int> remainder = a % b;
 
-    print_int_polynomial(p.first);
+    std::cout << p.first;
     printf("degree(quotient)=%u\n", (unsigned int)p.first);
 
-    print_int_polynomial(p.second);
+    std::cout << p.second;
     printf("degree(remainder)=%u\n", (unsigned int)remainder);
 
     (--b)--;
-    print_int_polynomial(b);
+    std::cout << b;
     ++((++b)++);
-    print_int_polynomial(b);
+    std::cout << b;
     Polynomial<int> d;
     
     if(!d){
-        printf("Yep yep\n");
+        std::cout << "Yep yep\n";
     }
     printf("degree(b)=%u\n", (unsigned int)b);
 
     return 0;
-}
-
-void print_int_polynomial(Polynomial<int> &rhs)
-{
-    if ((unsigned int)rhs >= 0)
-    {
-        printf("(%d)*x^%d", rhs[0], 0);
-        for (unsigned int i = 1; i <= ((unsigned int)rhs); ++i)
-            printf(" + (%d)*x^%d", rhs[i], i);
-        printf("\n");
-    }
 }

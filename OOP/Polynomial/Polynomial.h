@@ -1,5 +1,6 @@
 #pragma once
 
+#include "iostream"
 #include <math.h>
 
 #include "DynamicArray.h"
@@ -73,13 +74,11 @@ public:
     DynamicArray<C> *data;
     unsigned int index;
 
-  private:
-    Iterator(DynamicArray<C> &);
-
   public:
     Iterator();
     Iterator(const Iterator &);
     Iterator &operator=(const Iterator &);
+    Iterator(DynamicArray<C> &);
 
   public:
     Iterator &operator++();
@@ -96,6 +95,10 @@ public:
     bool operator!=(const Iterator &) const;
   };
 #pragma endregion
+
+public:
+  Iterator beg();
+  Iterator end();
 };
 
 template <typename C>
@@ -517,6 +520,21 @@ C Polynomial<C>::operator()(const C &point) const
   return result;
 }
 
+template <typename C>
+typename Polynomial<C>::Iterator Polynomial<C>::beg()
+{
+  return Iterator(coeffs);
+}
+
+template <typename C>
+typename Polynomial<C>::Iterator Polynomial<C>::end()
+{
+  Iterator result(coeffs);
+  result.index = coeffs.get_size();
+
+  return result;
+}
+
 #pragma region Iterator definition
 
 template <class C>
@@ -526,6 +544,11 @@ Polynomial<C>::Iterator::Iterator() : data(nullptr), index(0)
 
 template <class C>
 Polynomial<C>::Iterator::Iterator(const Iterator &rhs) : data(rhs.data), index(rhs.index)
+{
+}
+
+template <class C>
+Polynomial<C>::Iterator::Iterator(DynamicArray<C> &rhs) : data(&rhs), index(0)
 {
 }
 
@@ -544,10 +567,10 @@ typename Polynomial<C>::Iterator &Polynomial<C>::Iterator::operator=(const Itera
 template <class C>
 typename Polynomial<C>::Iterator &Polynomial<C>::Iterator::operator++()
 {
-  if (index + 1 <= data.get_size())
+  if (index + 1 <= data->get_size())
   {
     ++index;
-    while (index < data.get_size() && data[index] == 0)
+    while (index < data->get_size() && (*data)[index] == 0)
       ++index;
   }
 
@@ -588,13 +611,13 @@ typename Polynomial<C>::Iterator Polynomial<C>::Iterator::operator--(const int)
 template <class C>
 C *Polynomial<C>::Iterator::operator->()
 {
-  return &data[index];
+  return &((*data)[index]);
 }
 
 template <class C>
 C &Polynomial<C>::Iterator::operator*()
 {
-  return data[index];
+  return (*data)[index];
 }
 
 template <class C>
@@ -612,7 +635,7 @@ bool Polynomial<C>::Iterator::operator==(const Iterator &rhs) const
       If they arent, then we check if their indexes are equal, which would be the same as asking:
       "Are they pointing to the same object in the DynamicArray?"
    */
-    if (!data)
+    if (data)
       return index == rhs.index;
     else
       return true;
@@ -627,3 +650,34 @@ bool Polynomial<C>::Iterator::operator!=(const Iterator &rhs) const
 }
 
 #pragma endregion
+
+template <typename C>
+std::ostream &operator<<(std::ostream &out, const Polynomial<C> &rhs)
+{
+  if ((unsigned int)rhs >= 0)
+  {
+    out << '(' << rhs[0] << ")*x^0";
+
+    for (unsigned int i = 1; i <= (unsigned int)rhs; ++i)
+      out << " + (" << rhs[i] << ")*x^" << i;
+    out << '\n';
+  }
+}
+
+template <typename C>
+std::istream &operator>>(std::istream &in, Polynomial<C> &rhs)
+{
+  int coeffCount = 0;
+  in >> coeffCount;
+
+  printf("Please input %d coefficients. The Polynomial will be filled in ascending order.\n", coeffCount);
+
+  C currCoef = 0;
+  for (unsigned int c = 0; c < coeffCount; ++c)
+  {
+    std::cin >> currCoef;
+    rhs.set_at(c, currCoef);
+  }
+
+  return in;
+}
