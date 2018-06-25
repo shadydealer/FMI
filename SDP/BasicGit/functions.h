@@ -299,7 +299,7 @@ void status(const std::string &path)
 
     unsigned int curr_commit_id = get_commit_id(commits);
 
-    if (curr_commit_id == 1)
+    if (curr_commit_id == 0)
         throw "No commits have been made yet.";
 
     file_map original_data;
