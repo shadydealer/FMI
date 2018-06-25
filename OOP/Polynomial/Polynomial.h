@@ -651,6 +651,8 @@ bool Polynomial<C>::Iterator::operator!=(const Iterator &rhs) const
 
 #pragma endregion
 
+
+
 template <typename C>
 std::ostream &operator<<(std::ostream &out, const Polynomial<C> &rhs)
 {
@@ -667,13 +669,14 @@ std::ostream &operator<<(std::ostream &out, const Polynomial<C> &rhs)
 template <typename C>
 std::istream &operator>>(std::istream &in, Polynomial<C> &rhs)
 {
-  int coeffCount = 0;
-  in >> coeffCount;
+  printf("Please input the polynomials power:\n");
+  int n = 0;
+  in >> n;
 
-  printf("Please input %d coefficients. The Polynomial will be filled in ascending order.\n", coeffCount);
+  printf("\nPlease input %d coefficients. The Polynomial will be filled in ascending order.\n", n + 1);
 
   C currCoef = 0;
-  for (unsigned int c = 0; c < coeffCount; ++c)
+  for (unsigned int c = 0; c <= n; ++c)
   {
     std::cin >> currCoef;
     rhs.set_at(c, currCoef);
