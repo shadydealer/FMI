@@ -41,8 +41,8 @@ public:
   void print() const;
 
 public:
-  C &get_at(const int, const int);
-
+  C *operator[](const int);
+  
 public:
 #pragma region Getters
   int get_height() const;
@@ -147,14 +147,12 @@ void array2D<C>::copy_data(const int rhsHeight,
 }
 
 template <class C>
-C &array2D<C>::get_at(const int row, const int col)
+C *array2D<C>::operator[](const int row)
 {
-  if ((row >= 0 && row < height) && (col >= 0 && col < width))
-  {
-    return data[row][col];
-  }
-  else
-    throw std::out_of_range("indexes out of range.");
+  if ((row >= 0 && row < height))
+    return data[row];
+
+  throw std::out_of_range("Row index out of range.");
 }
 
 #pragma region Getters

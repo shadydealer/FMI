@@ -1,5 +1,6 @@
 #include "avatar.h"
 
+#pragma region Big Four
 Avatar::Avatar() : data()
 {
 }
@@ -20,14 +21,20 @@ Avatar &Avatar::operator=(const Avatar &rhs)
 Avatar::~Avatar()
 {
 }
+#pragma endregion
 
+/*
+    Cstring paramter Ctor.
+
+    @params filePath - full path to the file holding the char map.
+ */
 Avatar::Avatar(const char *filePath) : Avatar()
 {
     open_file(filePath);
 }
 
 /*
-    Checks if the passed if files format is valid.
+    Checks if the passed in files format is valid.
  */
 bool Avatar::valid_file(std::ifstream &charMap) const
 {
@@ -46,33 +53,32 @@ bool Avatar::valid_file(std::ifstream &charMap) const
          */
         charMap.getline(rowData, MAX_AVATAR_DIMENSIONS + 1);
 
-        /*
-         printf("failbit: %d\n", charMap.rdstate() & charMap.failbit);
-         printf("eofbit: %d\n", charMap.rdstate() & charMap.eofbit);
-        */
-
-        /*
-            Checks if ONLY the failbit flag is set
-            which in our case would mean that the line is too long.
-
-            If both eofbit and failbit have been set
-            it's due to getline setting both flags to true
-            when reaching the end of the file which will cause us to exist
-            on the next while loop iteration.
-         */
-        if ((charMap.rdstate() & charMap.failbit) != 0 &&
-            (charMap.rdstate() & charMap.eofbit) == 0)
-        {
+        if (charMap.fail())
             return false;
-        }
+
         ++rows;
         charMap.peek();
     }
+    /*
+        we clear the eofbit and failbit
+        so we can re-read the file to actually extract the data from it
+        since if failbit and/or badbit were set off
+        we would've returned false already. 
+     */
     charMap.clear();
+
+    //start from the beginning of the file again.
     charMap.seekg(std::ios::beg);
+
+    //will return false if there aren't enough or too many rows in the file.
     return (rows <= MAX_AVATAR_DIMENSIONS) && (rows > 0);
 }
 
+/*
+    Extracts the charmap from the file after validating the file.
+
+    @params charMap - stream containing the char map to be extracted.
+ */
 void Avatar::extract_data(std::ifstream &charMap)
 {
 
@@ -88,6 +94,11 @@ void Avatar::extract_data(std::ifstream &charMap)
 
         while (charMap.good())
         {
+            /*
+                We get each rows length every time so we can
+                get the exact char map dimensions which will help us
+                whe we print the window. 
+             */
             charMap.getline(temp[row], MAX_AVATAR_DIMENSIONS + 1);
             currRowLen = strlen(temp[row++]);
             maxRowLen = currRowLen > maxRowLen ? currRowLen : maxRowLen;

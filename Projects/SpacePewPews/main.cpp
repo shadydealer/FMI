@@ -13,7 +13,7 @@ int main()
             win.draw();
         }
 
-        Avatar avatar("assets/player_avatar.txt");
+        Avatar avatar("assets/invalid_avatar.txt");
         avatar.get_data().print();
     }
     catch (std::out_of_range &oor)

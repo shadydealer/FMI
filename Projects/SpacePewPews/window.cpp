@@ -12,7 +12,7 @@
 
 Window::Window() : width(DEFAULT_WIDTH + 3),   //+3 for the two borders and the null terminator
                    height(DEFAULT_HEIGHT + 2), //+2 for the two border rows.
-                   map(width,height)
+                   map(width, height)
 {
     generate_map();
 }
@@ -20,7 +20,7 @@ Window::Window() : width(DEFAULT_WIDTH + 3),   //+3 for the two borders and the 
 Window::Window(const int rhsWidth,
                const int rhsHeight) : width(rhsWidth + 1),
                                       height(rhsHeight + 1),
-                                      map(width,height)
+                                      map(width, height)
 {
     generate_map();
 }
@@ -35,18 +35,18 @@ Window::~Window()
 void Window::generate_map()
 {
     for (int c = 0; c < width - 1; ++c)
-        map.get_at(0, c) = VERTICAL_BORDER_TILE;
+        map[0][c] = VERTICAL_BORDER_TILE;
 
     for (int r = 1; r < height - 1; ++r)
     {
         for (int c = 1; c < width - 2; ++c)
-            map.get_at(r, c) = EMPTY_TILE;
+            map[r][c] = EMPTY_TILE;
 
-        map.get_at(r, 0) = map.get_at(r, width - 2) = HORIZONTAL_BORDER_TILE;
+        map[r][0] = map[r][width - 2] = HORIZONTAL_BORDER_TILE;
     }
 
     for (int c = 0; c < width - 1; ++c)
-        map.get_at(height - 1, c) = VERTICAL_BORDER_TILE;
+        map[height - 1][c] = VERTICAL_BORDER_TILE;
 }
 
 void Window::clear() const

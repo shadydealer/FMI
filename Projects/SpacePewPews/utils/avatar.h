@@ -22,10 +22,12 @@ private:
   void extract_data(std::ifstream &);
 
 public:
+#pragma region Big Four
   Avatar();
   Avatar(const Avatar &);
   Avatar &operator=(const Avatar &);
   ~Avatar();
+#pragma endregion
 
 public:
   Avatar(const char *);
