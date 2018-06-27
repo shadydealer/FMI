@@ -2,23 +2,47 @@
 
 #include <fstream>
 #include "utils/avatar.h"
+#include "utils/containers/Pair.h"
+
+enum Direction{
+  LEFT = -1,
+  RIGHT = 1
+};
 
 class Entity
 {
 protected:
-  int x, y;
+  Pair<int, int> coords;
+  Direction direction;
   Avatar avatar;
-  
-protected:
-  Entity();
-  Entity(const Entity &) = delete;
-  Entity &operator=(const Entity &) = delete;
-  ~Entity();
 
 protected:
-  virtual void set_avatar(const char *) = 0;
+
+#pragma region Big Four
+  Entity();
+  Entity(const Entity &);
+  Entity &operator=(const Entity &);
 
 public:
-  void move(const int, const int);
-  void shoot() const;
+  virtual ~Entity();
+
+#pragma endregion
+
+protected:
+  Entity(const int,
+         const int,
+         const Direction,
+         const char *);
+
+public:
+  void set_avatar(const char *);
+
+public:
+  const Pair<int, int> &get_coords() const;
+  const Direction& get_direction() const;
+  const Avatar &get_avatar() const;
+
+public:
+  virtual void move(const int,
+                    const int);
 };
