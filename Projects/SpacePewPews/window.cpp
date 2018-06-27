@@ -3,13 +3,6 @@
 
 #include "window.h"
 
-#define DEFAULT_HEIGHT 35
-#define DEFAULT_WIDTH 145
-
-#define EMPTY_TILE ' '
-#define HORIZONTAL_BORDER_TILE '|'
-#define VERTICAL_BORDER_TILE '-'
-
 Window::Window() : width(DEFAULT_WIDTH + 3),   //+3 for the two borders and the null terminator
                    height(DEFAULT_HEIGHT + 2), //+2 for the two border rows.
                    map(width, height)
@@ -65,11 +58,26 @@ void Window::clear() const
      */
     printf("\033[2J\033[1;1H");
 
-    usleep(100000); // so that the console window doesn't flicker.
+    usleep(80000); // so that the console window doesn't flicker.
 }
 
-void Window::draw() const
+void Window::draw()
 {
     clear();
-    map.print();
+    
+    LinkedList<Bullet>::iterator it = bullets.beg();
+
+    Pair<int, int> counters(0, 0);
+    for (counters.second; counters.second < map.get_height(); ++counters.second)
+    {
+        counters.first = 0;
+        for (counters.first; counters.first < map.get_width(); ++counters.first)
+        {
+            if (counters == (*it).get_coords())
+                (*it++).get_avatar().get_data().print();
+            else
+                std::cout << map[counters.second][counters.first];
+        }
+        std::cout << "\n";
+    }
 }
