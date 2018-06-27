@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "window.h"
-#include "utils/avatar.h"
+#include "bullet.h"
 
 int main()
 {
@@ -12,9 +12,6 @@ int main()
         {
             win.draw();
         }
-
-        Avatar avatar("assets/invalid_avatar.txt");
-        avatar.get_data().print();
     }
     catch (std::out_of_range &oor)
     {
@@ -31,6 +28,10 @@ int main()
     catch(InvalidFileFormat & iff)
     {
         iff.what();
+    }
+    catch(InvalidDirection& id)
+    {
+        id.what();
     }
 
     return 0;
