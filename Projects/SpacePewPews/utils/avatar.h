@@ -1,11 +1,10 @@
 #pragma once
 #include <fstream>
 
-#include "array2D.h"
+#include "containers/array2D.h"
 #include "execeptions.h"
 
-#define MAX_AVATAR_DIMENSIONS 10 //so the avatar file will contain 10x10 ASCII characters \
-                                 //not including end of line specifiers.
+#define MAX_AVATAR_DIMENSIONS 10
 
 /*
   A simple class that will hold a 2d char array
@@ -16,7 +15,7 @@ class Avatar
 {
 private:
   array2D<char> data;
-
+  
 private:
   bool valid_file(std::ifstream &) const;
   void extract_data(std::ifstream &);

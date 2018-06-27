@@ -42,7 +42,7 @@ public:
 
 public:
   C *operator[](const int);
-  
+
 public:
 #pragma region Getters
   int get_height() const;
@@ -181,6 +181,7 @@ void array2D<C>::print() const
   {
     for (unsigned int c = 0; c < width; ++c)
       std::cout << data[r][c];
-    std::cout << "\n";
+    if (r < height - 1)
+      std::cout << "\n";
   }
 }

@@ -38,3 +38,12 @@ public:
            maxRows, maxCols);
   }
 };
+
+struct InvalidDirection
+{
+  public:
+    void what() const
+    {
+      printf("The directions must be 1 (RIGHT) or -1(LEFT), no other options are available.");
+    }
+};

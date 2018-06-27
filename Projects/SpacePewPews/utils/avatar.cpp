@@ -49,7 +49,7 @@ bool Avatar::valid_file(std::ifstream &charMap) const
             We try reading 11 characters 
             so we can set the failbit to true
             if we've read n-1 characters already and the next character
-            in the stream IS NOT and end of line specifier.
+            in the stream IS NOT an end of line specifier.
          */
         charMap.getline(rowData, MAX_AVATAR_DIMENSIONS + 1);
 
