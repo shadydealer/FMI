@@ -15,7 +15,7 @@ class Avatar
 {
 private:
   array2D<char> data;
-  
+
 private:
   bool valid_file(std::ifstream &) const;
   void extract_data(std::ifstream &);
@@ -33,6 +33,7 @@ public:
 
 public:
   void open_file(const char *);
-  array2D<char> get_data() const;
 
+public:
+  const array2D<char> &get_data() const;
 };

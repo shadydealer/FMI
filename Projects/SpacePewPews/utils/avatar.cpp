@@ -138,7 +138,7 @@ void Avatar::open_file(const char *filePath)
         throw FileNotOpen(filePath);
 }
 
-array2D<char> Avatar::get_data() const
+const array2D<char>& Avatar::get_data() const
 {
     return data;
 }
