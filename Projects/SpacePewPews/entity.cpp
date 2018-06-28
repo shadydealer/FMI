@@ -41,15 +41,41 @@ Entity::Entity(const int rhsX,
                const int rhsY,
                const Direction rhsDirection,
                const char *filePath) : coords(rhsX, rhsY),
-                                       direction(RIGHT),
+                                       direction(rhsDirection),
                                        avatar(filePath)
 {
-    if (rhsDirection == LEFT || rhsDirection == RIGHT)
-        direction = rhsDirection;
-    else
-        throw InvalidDirection();
 }
 
+/*
+    Checks if the passed in coordinates overlap
+    with the entities hitbox.
+
+    @params rhsCoords - coords to check if are overlaping.
+
+    @return value: 
+        True if they are.
+        False otherwise.
+ */
+bool Entity::within_hitbox(const Pair<int, int> &rhsCoords) const
+{
+    int widthPadding = avatar.get_data().get_width() / 2 + (avatar.get_data().get_width() % 2 != 0);
+    int heightPadding = avatar.get_data().get_height() / 2 + (avatar.get_data().get_height() % 2 != 0);
+
+    return (rhsCoords.first > (coords.first - widthPadding) &&
+            rhsCoords.first < (coords.first + widthPadding) &&
+            rhsCoords.second > (coords.second - heightPadding) &&
+            rhsCoords.second < (coords.second + heightPadding));
+}
+
+/*
+    Increments the instances x and y
+    coordinates by multiplying the x coordinate
+    by the direction in order to move the object
+    in the window without constantly thinking whether
+    you should add a minus or not infront of the
+    number of steps you would like the
+    object to take. 
+ */
 void Entity::move(const int rhsX,
                   const int rhsY)
 {
