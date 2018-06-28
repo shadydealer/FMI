@@ -39,11 +39,24 @@ public:
   }
 };
 
-struct InvalidDirection
+struct InvalidMapSize
 {
-  public:
-    void what() const
-    {
-      printf("The directions must be 1 (RIGHT) or -1(LEFT), no other options are available.");
-    }
+public:
+  const int playerHeight;
+  const int playerWidth;
+
+public:
+  InvalidMapSize(const int rhsPlayerHeight,
+                 const int rhsPlayerWidth) : playerHeight(rhsPlayerHeight),
+                                             playerWidth(rhsPlayerWidth)
+  {
+  }
+
+public:
+  void what() const
+  {
+    printf("Map should be at least %d characters high and %d characters wide. "
+           "Either change the map dimensions or pick a smaller player avatar.\n",
+           playerHeight, playerWidth);
+  }
 };
