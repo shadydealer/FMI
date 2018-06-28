@@ -42,6 +42,7 @@ public:
 
 public:
   C *operator[](const int);
+  const C *operator[](const int) const;
 
 public:
 #pragma region Getters
@@ -155,6 +156,15 @@ C *array2D<C>::operator[](const int row)
   throw std::out_of_range("Row index out of range.");
 }
 
+template <class C>
+const C *array2D<C>::operator[](const int row) const
+{
+  if ((row >= 0 && row < height))
+    return data[row];
+
+  throw std::out_of_range("Row index out of range.");
+}
+
 #pragma region Getters
 template <class C>
 int array2D<C>::get_height() const
@@ -183,5 +193,17 @@ void array2D<C>::print() const
       std::cout << data[r][c];
     if (r < height - 1)
       std::cout << "\n";
+  }
+}
+
+template <>
+inline void array2D<char>::print() const
+{
+  for (unsigned int r = 0; r < height; ++r)
+  {
+    for (unsigned int c = 0; c < width; ++c)
+      printf("%c", data[r][c]);
+    if (r < height - 1)
+      printf("\n");
   }
 }
