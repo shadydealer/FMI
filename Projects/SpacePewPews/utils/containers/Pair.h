@@ -14,8 +14,8 @@ struct Pair
     Pair(const C1 &, const C2 &);
 
   public:
-    bool operator<(const Pair &) const;
     bool operator==(const Pair &) const;
+    bool operator!=(const Pair &) const;
 };
 
 template <class C1, class C2>
@@ -45,17 +45,13 @@ Pair<C1, C2> &Pair<C1, C2>::operator=(const Pair<C1, C2> &rhs)
 }
 
 template <class C1, class C2>
-bool Pair<C1, C2>::operator<(const Pair<C1, C2> &rhs) const
-{
-    if (first >= rhs.first)
-    {
-        return second < rhs.second;
-    }
-    return true;
-}
-
-template <class C1, class C2>
 bool Pair<C1, C2>::operator==(const Pair<C1, C2> &rhs) const
 {
     return first == rhs.first && second == rhs.second;
+}
+
+template <class C1, class C2>
+bool Pair<C1, C2>::operator!=(const Pair<C1, C2> &rhs) const
+{
+    return !(*this == rhs);
 }
