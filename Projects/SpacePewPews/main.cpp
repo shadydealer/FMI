@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "window.h"
 #include "bullet.h"
+#include "character.h"
 
 int main()
 {
@@ -8,10 +9,18 @@ int main()
     {
 
         Window win;
-        for (unsigned int i = 0; i < 10; ++i)
+        while(true)
         {
             win.draw();
         }
+
+        /*
+        Character player(0, 0, RIGHT, "assets/character_avatars/player_avatar.txt");
+        printf("height: %d, width: %d\n", player.get_avatar().get_data().get_height(),
+               player.get_avatar().get_data().get_width());
+        Pair<int, int> result(player.shoot());
+        printf("x: %d, y: %d\n", result.first, result.second);
+         */
     }
     catch (std::out_of_range &oor)
     {
@@ -25,14 +34,13 @@ int main()
     {
         fno.what();
     }
-    catch(InvalidFileFormat & iff)
+    catch (InvalidFileFormat &iff)
     {
         iff.what();
     }
-    catch(InvalidDirection& id)
+    catch (InvalidMapSize &ims)
     {
-        id.what();
+        ims.what();
     }
-
     return 0;
 }
