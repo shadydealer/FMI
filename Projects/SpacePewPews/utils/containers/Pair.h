@@ -13,9 +13,11 @@ struct Pair
     Pair &operator=(const Pair &);
     Pair(const C1 &, const C2 &);
 
+#pragma region Comparison operators
   public:
     bool operator==(const Pair &) const;
     bool operator!=(const Pair &) const;
+#pragma endregion
 };
 
 template <class C1, class C2>
@@ -44,6 +46,7 @@ Pair<C1, C2> &Pair<C1, C2>::operator=(const Pair<C1, C2> &rhs)
     return *this;
 }
 
+#pragma region Comparison operators
 template <class C1, class C2>
 bool Pair<C1, C2>::operator==(const Pair<C1, C2> &rhs) const
 {
@@ -55,3 +58,4 @@ bool Pair<C1, C2>::operator!=(const Pair<C1, C2> &rhs) const
 {
     return !(*this == rhs);
 }
+#pragma endregion
