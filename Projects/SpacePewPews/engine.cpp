@@ -7,7 +7,8 @@ Engine::Engine() : enemies(),
                    winWidth(DEFAULT_WIDTH),
                    winHeight(DEFAULT_HEIGHT),
                    handler(CommandHandler::get_instance()),
-                   window(Window::get_instance())
+                   window(Window::get_instance()),
+                   dificulty(NONE)
 {
     handler->init(winWidth, winHeight,
                   bullets, enemies, player);
@@ -35,10 +36,33 @@ void Engine::set_keyboard_non_blocking(termios *settings)
 
 void Engine::run()
 {
-    struct termios termSettings;
-    set_keyboard_non_blocking(&termSettings);
     try
     {
+        int row = 0;
+        while (dificulty == NONE)
+        {
+            window->clear();
+            window->print_level_menu();
+            scanf("%d", &row);
+            switch (row)
+            {
+            case 1:
+                dificulty = EASY;
+                break;
+            case 2:
+                dificulty = MEDIUM;
+                break;
+            case 3:
+                dificulty = HARD;
+                break;
+            default:
+                break;
+            }
+        }
+
+        struct termios termSettings;
+        set_keyboard_non_blocking(&termSettings);
+
         int counter = 0;
         char c = 0;
         int rng = 0;
@@ -70,11 +94,11 @@ void Engine::run()
             window->draw();
             handler->move_bullets();
 
-            if (counter % 3 == 0)
+            if (counter % (3*dificulty) == 0)
             {
                 handler->move_enemies();
             }
-            if (counter % 15 == 0)
+            if (counter % (15*dificulty) == 0)
             {
                 if (enemies.get_size() > 0)
                 {
@@ -82,7 +106,7 @@ void Engine::run()
                     handler->character_shoot(enemies[rng]);
                 }
             }
-            if (counter % 75 == 0)
+            if (counter % (75*dificulty) == 0)
             {
                 rng = rand() % 5 + 1;
                 handler->spawn_enemies(rng);
@@ -95,6 +119,7 @@ void Engine::run()
         window->clear();
         window->draw();
         printf("GAME OVER\n");
+        set_keyboard_blocking(&termSettings);
     }
     catch (std::out_of_range &oor)
     {
@@ -116,5 +141,4 @@ void Engine::run()
     {
         ims.what();
     };
-    set_keyboard_blocking(&termSettings);
 }

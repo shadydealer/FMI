@@ -8,6 +8,14 @@
 #include "utils/window.h"
 #include "utils/handlers/command_handler.h"
 
+enum Dificulty
+{
+  NONE = 0,
+  EASY = 10,
+  MEDIUM = 5,
+  HARD = 1
+};
+
 class Engine
 {
 private:
@@ -21,10 +29,13 @@ private:
   CommandHandler *handler;
   Window *window;
 
+  Dificulty dificulty;
+
 private:
   void set_keyboard_blocking(termios *);
   void set_keyboard_non_blocking(termios *);
-
+private:
+  bool hasPickedDificulty();
 public:
   Engine();
   Engine(const Engine &) = delete;

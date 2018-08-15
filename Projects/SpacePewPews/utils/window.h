@@ -14,6 +14,8 @@
 #define VERTICAL_BORDER_TILE '|'
 #define HORIZONTAL_BORDER_TILE '-'
 
+#define DEFAULT_CLEAR_SPEED 70000
+
 class Window
 {
 private:
@@ -49,7 +51,10 @@ public:
   static Window *get_instance();
 
 public:
+  void print_level_menu() const;
+
+public:
   void clear() const;
-  void print_stats();
+  void print_stats() const;
   void draw();
 };

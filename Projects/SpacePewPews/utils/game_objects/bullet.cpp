@@ -12,6 +12,7 @@ Bullet::Bullet(const Bullet &rhs) : Entity(rhs)
 Bullet &Bullet::operator=(const Bullet &rhs)
 {
     Entity::operator=(rhs);
+    return *this;
 }
 
 Bullet::~Bullet()

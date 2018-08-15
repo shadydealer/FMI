@@ -67,8 +67,6 @@ void Window::generate_map()
             {
                 if ((*enemies)[e].within_hitbox(indexes))
                 {
-                    int fir = (*enemies)[e].get_coords().first;
-                    int sec = (*enemies)[e].get_coords().second;
                     row = indexes.second - (((*enemies)[e].get_coords().second - ((*enemies)[e].get_avatar().get_data().get_height() / 2)));
                     col = indexes.first - (((*enemies)[e].get_coords().first - ((*enemies)[e].get_avatar().get_data().get_width() / 2)));
                     map[indexes.second][indexes.first] = (*enemies)[e].get_avatar().get_data()[row][col];
@@ -101,6 +99,17 @@ void Window::generate_map()
         map[height - 1][indexes.first] = HORIZONTAL_BORDER_TILE;
 }
 
+/*
+    Prints the level menu.
+ */
+void Window::print_level_menu() const
+{
+    printf("Pick a dificulty by entering one of the following numbers:\n");
+    printf("1)Easy\n"
+           "2)Medium\n"
+           "3)Hard\n");
+}
+
 void Window::clear() const
 {
     /*
@@ -117,10 +126,10 @@ void Window::clear() const
      */
     printf("\033[2J\033[1;1H");
 
-    usleep(70000); // so that the console window doesn't flicker.
+    usleep(DEFAULT_CLEAR_SPEED); // so that the console window doesn't flicker.
 }
 
-void Window::print_stats()
+void Window::print_stats() const
 {
     printf("LIVES: %d\n", player->get_lives());
 }
